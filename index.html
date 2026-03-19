@@ -1792,7 +1792,7 @@ startListeners();
 </script>
 
 <script>
-if('serviceWorker'in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+if('serviceWorker'in navigator){ navigator.serviceWorker.register('/Lines.Note/sw.js', {scope: '/Lines.Note/'}).catch(()=>{}); }
 
 </script>
 
