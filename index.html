@@ -381,6 +381,21 @@
   <div class="view" id="view-settings">
     <div class="view-title">Indstillinger</div>
     <div class="view-sub">Tilpas kategorier og data</div>
+    <div class="card" id="install-card">
+      <div class="section-title">📲 Installer app</div>
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Tilføj Lines.Note til din hjemmeskærm og brug den som en rigtig app — uden browser.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="install-btn-main" onclick="installApp()" style="display:none">
+          📲 Installer på denne enhed
+        </button>
+        <button class="btn btn-ghost" id="ios-btn-main" onclick="showIOSGuide()" style="display:none">
+          📲 Installer på iPhone / iPad
+        </button>
+        <div id="install-already" style="display:none;font-size:0.85rem;color:var(--accent);padding:8px 0">
+          ✅ Appen er allerede installeret
+        </div>
+      </div>
+    </div>
     <div class="card">
       <div class="section-title">🏷️ Egne kategorier</div>
       <div id="custom-cats-list"></div>
@@ -1712,11 +1727,50 @@ let _deferredInstallPrompt = null;
 window.addEventListener('beforeinstallprompt', e => {
   e.preventDefault();
   _deferredInstallPrompt = e;
-  // Only show if not dismissed before
+  // Show main install button in settings
+  const btn = document.getElementById('install-btn-main');
+  if(btn) btn.style.display = 'inline-flex';
+  const already = document.getElementById('install-already');
+  if(already) already.style.display = 'none';
+  // Auto-banner (only if not dismissed)
   if(!localStorage.getItem('ln_install_dismissed')) {
     setTimeout(() => document.getElementById('install-banner')?.classList.add('show'), 3000);
   }
 });
+
+window.installApp = async function() {
+  if(_deferredInstallPrompt) {
+    _deferredInstallPrompt.prompt();
+    const {outcome} = await _deferredInstallPrompt.userChoice;
+    if(outcome === 'accepted') {
+      document.getElementById('install-banner')?.classList.remove('show');
+      const btn = document.getElementById('install-btn-main');
+      if(btn) btn.style.display = 'none';
+      const already = document.getElementById('install-already');
+      if(already) already.style.display = 'block';
+    }
+    _deferredInstallPrompt = null;
+  }
+};
+
+window.showIOSGuide = function() {
+  document.getElementById('ios-guide')?.classList.add('show');
+};
+
+// Detect iOS to show the right button in settings
+(function detectPlatform(){
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+  if(isStandalone) {
+    // Already installed
+    const already = document.getElementById('install-already');
+    if(already) already.style.display = 'block';
+  } else if(isIOS) {
+    const btn = document.getElementById('ios-btn-main');
+    if(btn) btn.style.display = 'inline-flex';
+  }
+  // Android prompt handled by beforeinstallprompt event above
+})();
 
 window.addEventListener('appinstalled', () => {
   document.getElementById('install-banner')?.classList.remove('show');
