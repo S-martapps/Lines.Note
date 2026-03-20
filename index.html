@@ -383,17 +383,10 @@
   <div class="view" id="view-settings">
     <div class="view-title">Indstillinger</div>
     <div class="view-sub">Tilpas kategorier og data</div>
-    <div class="card" id="install-card">
+        <div class="card" id="install-card">
       <div class="section-title">📲 Installer app</div>
-      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Tilføj Lines.Note til din hjemmeskærm og brug den som en rigtig app — uden browser.</p>
-      <div style="display:flex;gap:10px;flex-wrap:wrap" id="install-btn-wrap">
-        <button class="btn btn-primary" id="install-btn-main" onclick="document.getElementById('install-manual-guide').classList.add('show')">
-          📲 Installer app
-        </button>
-        <div id="install-already" style="display:none;font-size:0.85rem;color:var(--accent);padding:8px 0">
-          ✅ Appen er allerede installeret
-        </div>
-      </div>
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Tilføj Lines.Note til din hjemmeskærm og brug den som en rigtig app.</p>
+      <button class="btn btn-primary" onclick="showInstallGuide()">📲 Vis installationsvejledning</button>
     </div>
     <div class="card">
       <div class="section-title">🏷️ Egne kategorier</div>
@@ -1663,7 +1656,31 @@ window.exportPDF = function(){
   <h1>Lines.Note — Udtræk</h1><div class="meta">Periode: ${from} → ${to} | ${empName} | ${filtered.length} noteringer</div>
   <h2>📋 Noteringer</h2><table><thead><tr><th>Dato</th><th>Tur</th><th>Navn</th><th>Kategori</th><th>Detaljer</th><th>Kommentar</th></tr></thead><tbody>${rows}</tbody></table>
   ${invRows?`<h2>💸 Regninger</h2><table><thead><tr><th>Dato</th><th>Tur</th><th>Navn</th><th>Type</th><th>Afsender</th><th>Beløb</th><th>Reference</th></tr></thead><tbody>${invRows}</tbody></table>`:''}
-  <script>window.print();window.onafterprint=()=>window.close();<\/script></body></html>`);
+  <script>window.print();window.onafterprint=()=>window.close();<\/script>
+<div id="install-guide-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:flex-end;justify-content:center">
+  <div style="background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:24px 20px 40px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <strong style="font-size:1.1rem">📲 Installer Lines.Note</strong>
+      <button onclick="hideInstallGuide()" style="background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;padding:4px 8px">✕</button>
+    </div>
+
+    <p style="font-weight:700;font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">Android (Samsung / Chrome)</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><span>Tryk på <strong>⋮ menu</strong> øverst til højre i browseren</span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><span>Vælg <strong>"Tilføj til startskærm"</strong></span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><span>Tryk <strong>Tilføj</strong></span></div>
+    </div>
+
+    <p style="font-weight:700;font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">iPhone / iPad (Safari)</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><span>Tryk på <strong>⬆️ Del</strong>-ikonet i Safari</span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><span>Vælg <strong>"Føj til hjemmeskærm"</strong></span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><span>Tryk <strong>Tilføj</strong></span></div>
+    </div>
+  </div>
+</div>
+
+</body></html>`);
   w.document.close(); closeModal('export-modal');
 };
 
@@ -1723,75 +1740,7 @@ function fmtDate(d){ if(!d)return''; const[y,m,day]=d.split('-'); return`${day}/
 // ═══════════════════════════════════════════════════
 let _deferredInstallPrompt = null;
 
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  _deferredInstallPrompt = e;
-  // Show main install button in settings
-  const btn = document.getElementById('install-btn-main');
-  if(btn) btn.style.display = 'inline-flex';
-  const already = document.getElementById('install-already');
-  if(already) already.style.display = 'none';
-  // Auto-banner (only if not dismissed)
-  if(!localStorage.getItem('ln_install_dismissed')) {
-    setTimeout(() => document.getElementById('install-banner')?.classList.add('show'), 3000);
-  }
-});
 
-window.installApp = async function() {
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-
-  if(isStandalone) {
-    // Already running as installed app
-    return;
-  }
-  if(isIOS) {
-    // Show iOS step-by-step guide
-    document.getElementById('ios-guide')?.classList.add('show');
-    return;
-  }
-  if(_deferredInstallPrompt) {
-    // Android Chrome / Samsung with prompt ready
-    _deferredInstallPrompt.prompt();
-    const {outcome} = await _deferredInstallPrompt.userChoice;
-    if(outcome === 'accepted') {
-      document.getElementById('install-banner')?.classList.remove('show');
-      document.getElementById('install-btn-wrap').style.display = 'none';
-      const already = document.getElementById('install-already');
-      if(already) { already.style.display = 'block'; }
-    }
-    _deferredInstallPrompt = null;
-  } else {
-    // Samsung browser or prompt not ready - show manual instructions
-    document.getElementById('install-manual-guide')?.classList.add('show');
-  }
-};
-
-window.showIOSGuide = function() {
-  document.getElementById('ios-guide')?.classList.add('show');
-};
-
-// On load: check if already installed, hide button
-(function detectPlatform(){
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  if(isStandalone) {
-    const wrap = document.getElementById('install-btn-wrap');
-    if(wrap) wrap.style.display = 'none';
-    const already = document.getElementById('install-already');
-    if(already) already.style.display = 'block';
-  }
-  if(isIOS) {
-    const btn = document.getElementById('install-btn-main');
-    if(btn) btn.textContent = '📲 Installer på iPhone / iPad';
-  }
-})();
-
-window.addEventListener('appinstalled', () => {
-  document.getElementById('install-banner')?.classList.remove('show');
-  _deferredInstallPrompt = null;
-  toast('🎉 Lines.Note er installeret!');
-});
 
 window.triggerInstall = async function(){
   if(_deferredInstallPrompt){
@@ -1857,6 +1806,13 @@ window.updateFab = function() {
   fab.title = labels[viewId] || 'Ny notering';
 };
 
+
+window.showInstallGuide = function() {
+  document.getElementById('install-guide-overlay').style.display = 'flex';
+};
+window.hideInstallGuide = function() {
+  document.getElementById('install-guide-overlay').style.display = 'none';
+};
 startListeners();
 </script>
 
@@ -1879,34 +1835,13 @@ if('serviceWorker'in navigator){ navigator.serviceWorker.register('/Lines.Note/s
 </div>
 
 <!-- iOS INSTALL GUIDE -->
-<div id="ios-guide">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <strong style="font-size:1rem">Installer på iPhone / iPad</strong>
-    <button class="modal-close" onclick="document.getElementById('ios-guide').classList.remove('show')">✕</button>
-  </div>
+</div>
   <div class="ios-steps">
     <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⬆️</div><div>Tryk på <strong>Del</strong>-ikonet i Safari's værktøjslinje</div></div>
     <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Rul ned og tryk på <strong>"Føj til hjemmeskærm"</strong></div></div>
     <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Tilføj</strong> — appen vises på din hjemmeskærm</div></div>
   </div>
 
-<div id="install-manual-guide">
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-    <strong style="font-size:1.05rem">📲 Installer Lines.Note</strong>
-    <button class="modal-close" onclick="document.getElementById('install-manual-guide').classList.remove('show')">✕</button>
-  </div>
-  <p style="font-size:0.82rem;color:var(--text2);margin-bottom:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Android (Samsung / Chrome)</p>
-  <div class="ios-steps">
-    <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⋮</div><div>Tryk på <strong>menu-ikonet</strong> øverst til højre i browseren</div></div>
-    <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Vælg <strong>"Tilføj til startskærm"</strong></div></div>
-    <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Tilføj</strong> eller <strong>Installer</strong></div></div>
-  </div>
-  <p style="font-size:0.82rem;color:var(--text2);margin:16px 0 14px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">iPhone / iPad (Safari)</p>
-  <div class="ios-steps">
-    <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⬆️</div><div>Tryk på <strong>Del</strong>-ikonet i Safari's toolbar</div></div>
-    <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Tryk <strong>"Føj til hjemmeskærm"</strong></div></div>
-    <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Tilføj</strong></div></div>
-  </div>
-</div>
+
 </body>
 </html>
