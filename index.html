@@ -387,8 +387,8 @@
       <div class="section-title">📲 Installer app</div>
       <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Tilføj Lines.Note til din hjemmeskærm og brug den som en rigtig app — uden browser.</p>
       <div style="display:flex;gap:10px;flex-wrap:wrap" id="install-btn-wrap">
-        <button class="btn btn-primary" id="install-btn-main" onclick="installApp()">
-          📲 Installer på denne enhed
+        <button class="btn btn-primary" id="install-btn-main" onclick="document.getElementById('install-manual-guide').classList.add('show')">
+          📲 Installer app
         </button>
         <div id="install-already" style="display:none;font-size:0.85rem;color:var(--accent);padding:8px 0">
           ✅ Appen er allerede installeret
@@ -1891,14 +1891,21 @@ if('serviceWorker'in navigator){ navigator.serviceWorker.register('/Lines.Note/s
   </div>
 
 <div id="install-manual-guide">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <strong style="font-size:1rem">Installer på Android</strong>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+    <strong style="font-size:1.05rem">📲 Installer Lines.Note</strong>
     <button class="modal-close" onclick="document.getElementById('install-manual-guide').classList.remove('show')">✕</button>
   </div>
+  <p style="font-size:0.82rem;color:var(--text2);margin-bottom:14px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">Android (Samsung / Chrome)</p>
   <div class="ios-steps">
-    <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⋮</div><div>Tryk på <strong>menu-ikonet</strong> (tre prikker) øverst i browseren</div></div>
-    <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Vælg <strong>"Tilføj til startskærm"</strong> eller <strong>"Installer app"</strong></div></div>
-    <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Installer</strong> i dialogen</div></div>
+    <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⋮</div><div>Tryk på <strong>menu-ikonet</strong> øverst til højre i browseren</div></div>
+    <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Vælg <strong>"Tilføj til startskærm"</strong></div></div>
+    <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Tilføj</strong> eller <strong>Installer</strong></div></div>
+  </div>
+  <p style="font-size:0.82rem;color:var(--text2);margin:16px 0 14px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em">iPhone / iPad (Safari)</p>
+  <div class="ios-steps">
+    <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⬆️</div><div>Tryk på <strong>Del</strong>-ikonet i Safari's toolbar</div></div>
+    <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Tryk <strong>"Føj til hjemmeskærm"</strong></div></div>
+    <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Tilføj</strong></div></div>
   </div>
 </div>
 </body>
