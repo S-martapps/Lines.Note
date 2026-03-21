@@ -389,6 +389,20 @@
       <button class="btn btn-primary" id="install-btn-main" onclick="doInstall()">📲 Installer app</button>
       <p id="install-done" style="display:none;color:var(--accent);font-size:0.85rem;margin-top:8px">✅ Appen er installeret!</p>
     </div>
+    <div class="card">
+      <div class="section-title">🏷️ Egne kategorier</div>
+      <div id="custom-cats-list"></div>
+      <button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="openCustomCatModal()">+ Ny kategori</button>
+    </div>
+    <div class="card">
+      <div class="section-title">☁️ Firebase status</div>
+      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Data synkroniseres automatisk i realtid via Firebase Firestore. Alle enheder ser samme data.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn btn-ghost btn-sm" onclick="exportBackup()">💾 Backup til JSON</button>
+        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('restore-input').click()">📤 Gendan fra JSON</button>
+        <input type="file" id="restore-input" accept=".json" style="display:none" onchange="restoreBackup(event)" />
+      </div>
+    </div>
   </div>
 
   <!-- REVISIONSLOG -->
