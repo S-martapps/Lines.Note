@@ -1,20 +1,19 @@
-// Lines.Note — Service Worker (GitHub Pages)
-const CACHE_NAME = 'lines-note-v3';
-const BASE = '/Lines.Note';
+// Lines.Note — Service Worker
+const CACHE_NAME = 'lines-note-v4';
 
 const PRECACHE = [
-  BASE + '/',
-  BASE + '/index.html',
-  BASE + '/manifest.json',
-  BASE + '/icons/icon-72.png',
-  BASE + '/icons/icon-96.png',
-  BASE + '/icons/icon-128.png',
-  BASE + '/icons/icon-144.png',
-  BASE + '/icons/icon-152.png',
-  BASE + '/icons/icon-180.png',
-  BASE + '/icons/icon-192.png',
-  BASE + '/icons/icon-512.png',
-  BASE + '/icons/icon-512-maskable.png',
+  './',
+  './index.html',
+  './manifest.json',
+  './icons/icon-72.png',
+  './icons/icon-96.png',
+  './icons/icon-128.png',
+  './icons/icon-144.png',
+  './icons/icon-152.png',
+  './icons/icon-180.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/icon-512-maskable.png',
 ];
 
 const CDN_ORIGINS = [
@@ -77,7 +76,6 @@ self.addEventListener('fetch', event => {
         }
         return res;
       })
-      .catch(() => caches.match(event.request)
-        .then(cached => cached || caches.match(BASE + '/')))
+      .catch(() => caches.match(event.request).then(c => c || caches.match('./')))
   );
 });
