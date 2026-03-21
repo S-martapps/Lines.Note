@@ -2,53 +2,53 @@
   "name": "Lines.Note",
   "short_name": "Lines.Note",
   "description": "Daglig turadministration",
-  "start_url": "/Lines.Note/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#0d1a08",
   "theme_color": "#56b529",
   "lang": "da",
-  "scope": "/Lines.Note/",
+  "scope": "./",
   "icons": [
     {
-      "src": "/Lines.Note/icons/icon-72.png",
+      "src": "icons/icon-72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/Lines.Note/icons/icon-96.png",
+      "src": "icons/icon-96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/Lines.Note/icons/icon-128.png",
+      "src": "icons/icon-128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/Lines.Note/icons/icon-144.png",
+      "src": "icons/icon-144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/Lines.Note/icons/icon-152.png",
+      "src": "icons/icon-152.png",
       "sizes": "152x152",
       "type": "image/png"
     },
     {
-      "src": "/Lines.Note/icons/icon-192.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/Lines.Note/icons/icon-512.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/Lines.Note/icons/icon-512-maskable.png",
+      "src": "icons/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -59,5 +59,5 @@
     "utilities"
   ],
   "screenshots": [],
-  "id": "/Lines.Note/"
+  "id": "./"
 }
