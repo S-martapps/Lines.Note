@@ -383,24 +383,11 @@
   <div class="view" id="view-settings">
     <div class="view-title">Indstillinger</div>
     <div class="view-sub">Tilpas kategorier og data</div>
-        <div class="card" id="install-card">
+            <div class="card" id="install-card">
       <div class="section-title">📲 Installer app</div>
       <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Tilføj Lines.Note til din hjemmeskærm og brug den som en rigtig app.</p>
-      <button class="btn btn-primary" onclick="showInstallGuide()">📲 Vis installationsvejledning</button>
-    </div>
-    <div class="card">
-      <div class="section-title">🏷️ Egne kategorier</div>
-      <div id="custom-cats-list"></div>
-      <button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="openCustomCatModal()">+ Ny kategori</button>
-    </div>
-    <div class="card">
-      <div class="section-title">☁️ Firebase status</div>
-      <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Data synkroniseres automatisk i realtid via Firebase Firestore. Alle enheder ser samme data.</p>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn btn-ghost btn-sm" onclick="exportBackup()">💾 Backup til JSON</button>
-        <button class="btn btn-ghost btn-sm" onclick="document.getElementById('restore-input').click()">📤 Gendan fra JSON</button>
-        <input type="file" id="restore-input" accept=".json" style="display:none" onchange="restoreBackup(event)" />
-      </div>
+      <button class="btn btn-primary" id="install-btn-main" onclick="doInstall()">📲 Installer app</button>
+      <p id="install-done" style="display:none;color:var(--accent);font-size:0.85rem;margin-top:8px">✅ Appen er installeret!</p>
     </div>
   </div>
 
@@ -1807,12 +1794,47 @@ window.updateFab = function() {
 };
 
 
-window.showInstallGuide = function() {
+// ── Install PWA ──────────────────────────────────────
+let _installPrompt = null;
+
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _installPrompt = e;
+  console.log('Install prompt ready');
+});
+
+window.addEventListener('appinstalled', () => {
+  _installPrompt = null;
+  const btn = document.getElementById('install-btn-main');
+  const done = document.getElementById('install-done');
+  if(btn)  btn.style.display  = 'none';
+  if(done) done.style.display = 'block';
+});
+
+window.doInstall = async function() {
+  const isIOS      = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSamsung  = /samsungbrowser/i.test(navigator.userAgent);
+  const standalone = window.matchMedia('(display-mode:standalone)').matches || navigator.standalone;
+
+  if(standalone) {
+    document.getElementById('install-done').style.display = 'block';
+    document.getElementById('install-btn-main').style.display = 'none';
+    return;
+  }
+  if(_installPrompt) {
+    _installPrompt.prompt();
+    const res = await _installPrompt.userChoice;
+    if(res.outcome === 'accepted') {
+      document.getElementById('install-btn-main').style.display = 'none';
+      document.getElementById('install-done').style.display     = 'block';
+    }
+    _installPrompt = null;
+    return;
+  }
+  // No native prompt - show guide
   document.getElementById('install-guide-overlay').style.display = 'flex';
 };
-window.hideInstallGuide = function() {
-  document.getElementById('install-guide-overlay').style.display = 'none';
-};
+
 startListeners();
 </script>
 
