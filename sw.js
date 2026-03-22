@@ -1,19 +1,19 @@
 // Lines.Note — Service Worker
-const CACHE_NAME = 'lines-note-v4';
+const CACHE_NAME = 'lines-note-v5';
 
 const PRECACHE = [
   './',
   './index.html',
   './manifest.json',
-  './icons/icon-72.png',
-  './icons/icon-96.png',
-  './icons/icon-128.png',
-  './icons/icon-144.png',
-  './icons/icon-152.png',
-  './icons/icon-180.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/icon-512-maskable.png',
+  './icon-72.png',
+  './icon-96.png',
+  './icon-128.png',
+  './icon-144.png',
+  './icon-152.png',
+  './icon-180.png',
+  './icon-192.png',
+  './icon-512.png',
+  './icon-512-maskable.png',
 ];
 
 const CDN_ORIGINS = [
