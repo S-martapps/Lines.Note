@@ -1681,6 +1681,9 @@ window.exportPDF = function(){
   </div>
 </div>
 
+
+
+
 </body></html>`);
   w.document.close(); closeModal('export-modal');
 };
@@ -1808,47 +1811,6 @@ window.updateFab = function() {
 };
 
 
-// ── Install PWA ──────────────────────────────────────
-let _installPrompt = null;
-
-window.addEventListener('beforeinstallprompt', e => {
-  e.preventDefault();
-  _installPrompt = e;
-  console.log('Install prompt ready');
-});
-
-window.addEventListener('appinstalled', () => {
-  _installPrompt = null;
-  const btn = document.getElementById('install-btn-main');
-  const done = document.getElementById('install-done');
-  if(btn)  btn.style.display  = 'none';
-  if(done) done.style.display = 'block';
-});
-
-window.doInstall = async function() {
-  const isIOS      = /iphone|ipad|ipod/i.test(navigator.userAgent);
-  const isSamsung  = /samsungbrowser/i.test(navigator.userAgent);
-  const standalone = window.matchMedia('(display-mode:standalone)').matches || navigator.standalone;
-
-  if(standalone) {
-    document.getElementById('install-done').style.display = 'block';
-    document.getElementById('install-btn-main').style.display = 'none';
-    return;
-  }
-  if(_installPrompt) {
-    _installPrompt.prompt();
-    const res = await _installPrompt.userChoice;
-    if(res.outcome === 'accepted') {
-      document.getElementById('install-btn-main').style.display = 'none';
-      document.getElementById('install-done').style.display     = 'block';
-    }
-    _installPrompt = null;
-    return;
-  }
-  // No native prompt - show guide
-  document.getElementById('install-guide-overlay').style.display = 'flex';
-};
-
 startListeners();
 </script>
 
@@ -1879,5 +1841,49 @@ if('serviceWorker'in navigator){ navigator.serviceWorker.register('./sw.js').cat
   </div>
 
 
+
+<script>
+// ── Install PWA ─────────────────────────────────────
+var _installPrompt = null;
+
+window.addEventListener('beforeinstallprompt', function(e) {
+  e.preventDefault();
+  _installPrompt = e;
+});
+
+window.addEventListener('appinstalled', function() {
+  _installPrompt = null;
+  var btn  = document.getElementById('install-btn-main');
+  var done = document.getElementById('install-done');
+  if(btn)  btn.style.display  = 'none';
+  if(done) done.style.display = 'block';
+});
+
+function doInstall() {
+  var standalone = window.matchMedia('(display-mode:standalone)').matches || navigator.standalone;
+  if(standalone) {
+    document.getElementById('install-btn-main').style.display = 'none';
+    document.getElementById('install-done').style.display = 'block';
+    return;
+  }
+  if(_installPrompt) {
+    _installPrompt.prompt();
+    _installPrompt.userChoice.then(function(res) {
+      if(res.outcome === 'accepted') {
+        document.getElementById('install-btn-main').style.display = 'none';
+        document.getElementById('install-done').style.display = 'block';
+      }
+      _installPrompt = null;
+    });
+    return;
+  }
+  // No native prompt — show guide
+  document.getElementById('install-guide-overlay').style.display = 'flex';
+}
+
+function hideInstallGuide() {
+  document.getElementById('install-guide-overlay').style.display = 'none';
+}
+</script>
 </body>
 </html>
