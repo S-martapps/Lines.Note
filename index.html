@@ -570,7 +570,7 @@
   <div class="view" id="view-vacation">
     <div class="row-between" style="margin-bottom:14px">
       <div><div class="view-title">🏖️ Ferier & Fridage</div><div class="view-sub">Kalender, anmodninger og godkendelse</div></div>
-      <button class="btn btn-primary btn-sm" onclick="openModal('vac-req-modal')">+ Ny anmodning</button>
+      <button class="btn btn-primary btn-sm" onclick="initVacation();openModal('vac-req-modal')">+ Ny anmodning</button>
     </div>
 
     <!-- Sub tabs -->
@@ -930,6 +930,27 @@ let editingEmpId=null, editingCCId=null, editingLogId=null;
 let editSelectedEmpId=null, editSelectedCategory=null;
 let selectedCategory=null, selectedEmpId=null;
 let _cardFilter='', _catFilter='';
+
+// Vacation constants (used across save-log + vacation module)
+const VAC_TYPE_LABELS = {ferie:'🌴 Ferie',fridag:'🏖 Fridag',feriefridag:'📅 Feriefridag',afspadsering:'⏰ Afspadsering',barns_sygedag:'👶 Barns sygedag',orlov:'📋 Orlov'};
+const VAC_COLORS = ['#3B82F6','#10B981','#F59E0B','#EF4444','#A78BFA','#EC4899','#06B6D4','#F97316','#84CC16','#6366F1','#14B8A6','#E11D48','#8B5CF6','#0891B2','#CA8A04','#DC2626','#7C3AED','#059669','#D946EF','#EA580C','#2563EB','#16A34A','#DB2777','#4F46E5','#0D9488','#B91C1C','#9333EA','#C026D3','#65A30D','#0284C7'];
+let vacRequests = [];
+let _vacMonth = new Date().getMonth();
+let _vacYear = new Date().getFullYear();
+let _vacView = 'calendar';
+let _vacFilter = 'all';
+
+// Fuel state (used in showView before fuel section)
+const FUEL_PIN = '1234'; // ← Skift denne PIN
+let _fuelUnlocked = false;
+let _fuelParsedData = [];
+let _fuelCardMatches = {}; // kortNr -> empId
+let _fuelReports = [];
+let _fuelStatView = 'company';
+
+// DokuScan state
+let _scanSelectedEmpId = null;
+let _scanning = false;
 
 // ═══════════════════════════════════════════════════
 //  SYNC STATUS
@@ -2676,14 +2697,8 @@ window.executeMerge = async function(){
 // ═══════════════════════════════════════════════════
 //  FERIER & FRIDAGE
 // ═══════════════════════════════════════════════════
-const VAC_COLORS = ['#3B82F6','#10B981','#F59E0B','#EF4444','#A78BFA','#EC4899','#06B6D4','#F97316','#84CC16','#6366F1','#14B8A6','#E11D48','#8B5CF6','#0891B2','#CA8A04','#DC2626','#7C3AED','#059669','#D946EF','#EA580C','#2563EB','#16A34A','#DB2777','#4F46E5','#0D9488','#B91C1C','#9333EA','#C026D3','#65A30D','#0284C7'];
-const VAC_TYPE_LABELS = {ferie:'🌴 Ferie',fridag:'🏖 Fridag',feriefridag:'📅 Feriefridag',afspadsering:'⏰ Afspadsering',barns_sygedag:'👶 Barns sygedag',orlov:'📋 Orlov'};
-
-let vacRequests = [];
-let _vacMonth = new Date().getMonth();
-let _vacYear = new Date().getFullYear();
-let _vacView = 'calendar';
-let _vacFilter = 'all';
+// VAC_COLORS and VAC_TYPE_LABELS are declared in state section above
+// vacRequests, _vacMonth, _vacYear, _vacView, _vacFilter declared above
 
 // ── Firestore listener ──
 function startVacListener(){
@@ -2988,12 +3003,7 @@ function initVacation(){
 // ═══════════════════════════════════════════════════
 //  BRÆNDSTOF RAPPORT (Umar + Aaron + PIN)
 // ═══════════════════════════════════════════════════
-const FUEL_PIN = '1234'; // ← Skift denne PIN
-let _fuelUnlocked = false;
-let _fuelParsedData = [];
-let _fuelCardMatches = {}; // kortNr -> empId
-let _fuelReports = [];
-let _fuelStatView = 'company';
+// FUEL_PIN, _fuelUnlocked, _fuelParsedData, _fuelCardMatches, _fuelReports, _fuelStatView declared in state section above
 
 // Show/hide fuel tab based on user
 function updateFuelTabVisibility(){
@@ -3595,8 +3605,7 @@ window.setScanProxy = function(){
   window.location.reload();
 };
 
-let _scanSelectedEmpId = null;
-let _scanning = false;
+// _scanSelectedEmpId and _scanning declared in state section above
 
 function renderScanEmpPills(){
   const c=document.getElementById('scan-emp-pills'); if(!c) return;
