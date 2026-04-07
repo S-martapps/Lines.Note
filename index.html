@@ -1,4 +1,4 @@
-<!DOCTYPE html> vent
+<!DOCTYPE html>
 <html lang="da">
 <head>
   <meta charset="UTF-8" />
@@ -8,20 +8,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Lines.Note" />
   <link rel="manifest" href="manifest.json" />
-
-  <!-- Apple Touch Icons (iOS / iPadOS) -->
-  <link rel="apple-touch-icon" href="icons/icon-180.png" />
-  <link rel="apple-touch-icon" sizes="152x152" href="icons/icon-152.png" />
-  <link rel="apple-touch-icon" sizes="144x144" href="icons/icon-144.png" />
-  <link rel="apple-touch-icon" sizes="192x192" href="icons/icon-192.png" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
-  <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png" />
-
-  <!-- MS Tile (Windows) -->
-  <meta name="msapplication-TileImage" content="icons/icon-144.png" />
-  <meta name="msapplication-TileColor" content="#0d1a08" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
   <title>Lines.Note</title>
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -31,9 +18,72 @@
       --bg:#0d1a08; --surface:#142310; --surface2:#1c3016; --border:#274a1c;
       --accent:#56b529; --accent2:#7bc655; --accent-glow:rgba(86,181,41,0.18);
       --green:#56b529; --red:#ef4444; --orange:#f97316; --yellow:#eab308;
-      --purple:#a855f7; --cyan:#56b529; --text:#f0f9eb; --text2:#9dc97d; --text3:#5a7a45;
+      --purple:#a855f7; --cyan:#06b6d4; --text:#f0f9eb; --text2:#9dc97d; --text3:#5a7a45;
       --mono:'Space Mono',monospace; --sans:'DM Sans',sans-serif; --radius:12px;
     }
+    body.light {
+      --bg:#f0f5ec; --surface:#ffffff; --surface2:#f5f9f2; --border:#d5e3cd;
+      --accent:#3d8a1a; --accent2:#56b529; --accent-glow:rgba(61,138,26,0.1);
+      --green:#16a34a; --red:#dc2626; --orange:#ea580c; --yellow:#ca8a04;
+      --purple:#9333ea; --cyan:#0891b2; --text:#1e293b; --text2:#475569; --text3:#94a3b8;
+    }
+    body.light::before{background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(86,181,41,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(168,85,247,0.04) 0%,transparent 60%);}
+    body.light .topbar{background:rgba(255,255,255,0.92);}
+    body.light .badge-red{background:rgba(220,38,38,0.1);color:#dc2626;}
+    body.light .badge-orange{background:rgba(234,88,12,0.1);color:#ea580c;}
+    body.light .badge-green{background:rgba(22,163,74,0.1);color:#16a34a;}
+    body.light .badge-blue{background:rgba(86,181,41,0.1);color:#3d8a1a;}
+    body.light .badge-yellow{background:rgba(202,138,4,0.1);color:#ca8a04;}
+    body.light .badge-purple{background:rgba(147,51,234,0.1);color:#9333ea;}
+    body.light .badge-cyan{background:rgba(8,145,178,0.1);color:#0891b2;}
+    body.light .badge-gray{background:rgba(100,116,139,0.1);color:#64748b;}
+    body.light .emp-card:hover{border-color:var(--accent);}
+    body.light .nav-btn.active{box-shadow:0 0 12px rgba(86,181,41,0.2);}
+    body.light .fab{box-shadow:0 4px 18px rgba(86,181,41,0.3);}
+    body.light .btn-primary:hover:not(:disabled){box-shadow:0 0 12px rgba(86,181,41,0.2);}
+    body.light .toast{background:var(--surface);border:1px solid var(--border);color:var(--text);box-shadow:0 4px 18px rgba(0,0,0,0.15);}
+    body.light #user-login-screen{background:var(--bg);}
+    body.light .login-user-btn{background:var(--surface);border-color:var(--border);}
+    body.light .login-user-btn:hover{border-color:var(--purple);background:rgba(147,51,234,0.05);}
+    body.light #loading-screen{background:var(--bg);}
+    body.light .audit-by{background:rgba(147,51,234,0.1);color:#9333ea;}
+
+    /* ── VACATION MODULE ── */
+    .vac-cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+    .vac-cal-nav h3{font-size:1.1rem;font-weight:700}
+    .vac-cal-nav button{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:5px 12px;cursor:pointer;font-size:1rem}
+    .vac-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-bottom:10px}
+    .vac-day-name{text-align:center;font-size:0.65rem;font-weight:600;color:var(--text3);padding:4px 0}
+    .vac-day{min-height:34px;border-radius:5px;padding:2px;background:var(--surface);border:1px solid var(--border);cursor:pointer;position:relative;transition:border-color .15s}
+    .vac-day:hover{border-color:var(--accent)}
+    .vac-day.empty{background:transparent;border-color:transparent;cursor:default}
+    .vac-day.today{border-color:var(--accent)}
+    .vac-day .vd-num{font-size:0.65rem;font-weight:500;color:var(--text3);line-height:1}
+    .vac-day.today .vd-num{color:var(--accent);font-weight:700}
+    .vac-day .vd-dots{display:flex;flex-wrap:wrap;gap:1px;margin-top:2px}
+    .vac-dot{width:6px;height:6px;border-radius:2px}
+    .vac-legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+    .vac-legend-item{display:flex;align-items:center;gap:4px;font-size:0.72rem;color:var(--text3)}
+    .vac-legend-dot{width:8px;height:8px;border-radius:3px}
+    .vac-req-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:8px;overflow:hidden}
+    .vac-req-header{padding:12px 14px;display:flex;align-items:center;gap:10px}
+    .vac-req-info{flex:1}
+    .vac-req-name{font-size:0.9rem;font-weight:600}
+    .vac-req-dates{font-size:0.75rem;color:var(--text3);font-family:var(--mono)}
+    .vac-req-actions{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--border)}
+    .vac-req-actions button{padding:10px;background:none;border:none;font-family:var(--sans);font-size:0.85rem;font-weight:600;cursor:pointer}
+    .vac-req-actions .vac-reject{color:var(--red);border-right:1px solid var(--border)}
+    .vac-req-actions .vac-reject:hover{background:rgba(239,68,68,0.06)}
+    .vac-req-actions .vac-approve{color:var(--green)}
+    .vac-req-actions .vac-approve:hover{background:rgba(34,197,94,0.06)}
+    .vac-status{font-size:0.65rem;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:0.5px}
+    .vac-status.pending{background:rgba(234,179,8,0.12);color:var(--yellow)}
+    .vac-status.approved{background:rgba(34,197,94,0.12);color:var(--green)}
+    .vac-status.rejected{background:rgba(239,68,68,0.12);color:var(--red)}
+    .vac-subtabs{display:flex;gap:4px;margin-bottom:14px}
+    .vac-subtab{font-family:var(--sans);font-size:0.75rem;font-weight:600;padding:5px 12px;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text3);cursor:pointer;transition:all .15s}
+    .vac-subtab.active{background:var(--accent-glow);border-color:var(--accent);color:var(--accent2)}
+    .vac-pending-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--yellow);margin-left:4px}
     *{margin:0;padding:0;box-sizing:border-box;}
     body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden;}
     body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(86,181,41,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 110%,rgba(168,85,247,0.08) 0%,transparent 60%);pointer-events:none;z-index:0;}
@@ -107,7 +157,7 @@
     .badge-red{background:rgba(239,68,68,0.12);color:#fca5a5;}
     .badge-orange{background:rgba(249,115,22,0.12);color:#fdba74;}
     .badge-green{background:rgba(34,197,94,0.12);color:#86efac;}
-    .badge-blue{background:rgba(86,181,41,0.12);color:#93c5fd;}
+    .badge-blue{background:rgba(59,130,246,0.12);color:#93c5fd;}
     .badge-yellow{background:rgba(234,179,8,0.12);color:#fde047;}
     .badge-purple{background:rgba(168,85,247,0.12);color:#d8b4fe;}
     .badge-cyan{background:rgba(6,182,212,0.12);color:#67e8f9;}
@@ -183,8 +233,8 @@
 
     /* PWA INSTALL BANNER */
     #install-banner{display:none;position:fixed;bottom:80px;left:50%;transform:translateX(-50%);z-index:400;
-      background:linear-gradient(135deg,var(--surface),#1c3016);border:1px solid var(--accent);
-      border-radius:16px;padding:14px 18px;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 1px rgba(86,181,41,0.2);
+      background:linear-gradient(135deg,var(--surface),#1a2235);border:1px solid var(--accent);
+      border-radius:16px;padding:14px 18px;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 0 1px rgba(59,130,246,0.2);
       display:none;align-items:center;gap:14px;max-width:360px;width:calc(100% - 40px);animation:slideUpFade 0.4s ease;}
     #install-banner.show{display:flex;}
     @keyframes slideUpFade{from{opacity:0;transform:translateX(-50%) translateY(20px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
@@ -200,8 +250,6 @@
       background:var(--surface);border-top:1px solid var(--border);border-radius:20px 20px 0 0;
       padding:22px 20px 36px;animation:slideUp 0.3s ease;}
     #ios-guide.show{display:block;}
-    #install-manual-guide{display:none;position:fixed;bottom:0;left:0;right:0;z-index:500;background:var(--surface);border-top:1px solid var(--border);border-radius:20px 20px 0 0;padding:22px 20px 36px;animation:slideUp 0.3s ease;}
-    #install-manual-guide.show{display:block;}
     .ios-steps{display:flex;flex-direction:column;gap:12px;margin-top:16px;}
     .ios-step{display:flex;align-items:center;gap:12px;font-size:0.88rem;color:var(--text2);}
     .ios-step-num{width:28px;height:28px;border-radius:50%;background:var(--accent);color:white;
@@ -255,7 +303,7 @@
 <!-- USER LOGIN SCREEN -->
 <div id="user-login-screen" style="display:none">
   <div class="login-logo">Lines<span>.</span>Note</div>
-  <div class="login-sub">Daglig turadministration</div>
+  <div class="login-sub">Daglig turadministration · <span style="font-family:var(--mono);font-size:0.75rem">v2.0</span></div>
   <div class="login-title">Hvem er du?</div>
   <div class="login-users" id="login-user-grid">
     <button class="login-user-btn" onclick="loginAs('Umar')">
@@ -280,10 +328,11 @@
 <div id="app" style="display:none">
 
   <div class="topbar">
-    <div class="logo">Lines<span>.</span>Note</div>
+    <div class="logo">Lines<span>.</span>Note <span style="font-family:var(--mono);font-size:0.55rem;color:var(--text3);font-weight:400;vertical-align:super;margin-left:2px">v2.0</span></div>
     <div class="topbar-right">
       <div class="sync-status"><span class="sync-dot" id="sync-dot"></span><span id="sync-label">Live</span></div>
       <div class="topbar-actions">
+        <button class="btn btn-ghost btn-sm btn-icon" onclick="toggleTheme()" id="theme-toggle-btn" title="Skift tema">🌙</button>
         <button class="btn btn-ghost btn-sm" onclick="showView('cards',null)">💳 Kort</button>
         <button class="btn btn-ghost btn-sm" onclick="showExportModal()">⬇ Udtræk</button>
       </div>
@@ -300,9 +349,12 @@
   <nav class="nav">
     <button class="nav-btn active" onclick="showView('overview',this)">📊 Oversigt</button>
     <button class="nav-btn" onclick="showView('log',this)">✍️ Notering</button>
+    <button class="nav-btn" onclick="showView('scanner',this)">📸 DokuScan</button>
     <button class="nav-btn" onclick="showView('employees',this)">👥 Medarbejdere</button>
     <button class="nav-btn" onclick="showView('history',this)">📋 Historik</button>
     <button class="nav-btn" onclick="showView('cards',this)">💳 Kort & Brikker</button>
+    <button class="nav-btn" id="fuel-nav-btn" style="display:none" onclick="showView('fuel',this)">⛽ Brændstof</button>
+    <button class="nav-btn" onclick="showView('vacation',this)">🏖️ Ferie</button>
     <button class="nav-btn" onclick="showView('settings',this)">⚙️ Indstillinger</button>
     <button class="nav-btn" onclick="showView('auditlog',this)">🔍 Revisionslog</button>
   </nav>
@@ -312,8 +364,9 @@
     <div class="view-title">Dagens overblik</div>
     <div class="view-sub" id="today-date-label"></div>
     <div class="stats-strip" id="stats-strip"></div>
+    <div id="overview-vac-banner"></div>
     <div class="card">
-      <div class="section-title">📅 Seneste noteringer</div>
+      <div class="section-title">📅 Seneste noteringer (5)</div>
       <div id="recent-logs-list"></div>
     </div>
   </div>
@@ -324,7 +377,10 @@
     <div class="view-sub">Vælg medarbejder og kategori</div>
     <div class="card">
       <div class="form-group"><label>Dato</label><input type="date" id="log-date" /></div>
-      <div class="form-group"><label>Medarbejder</label><div class="emp-select-pills" id="emp-pills-log"></div></div>
+      <div class="form-group"><label>Medarbejder</label>
+        <input type="text" id="emp-pill-search" placeholder="🔍 Søg tur nr. eller navn..." oninput="renderEmpPills()" style="margin-bottom:8px;padding:8px 12px;font-size:0.85rem" />
+        <div class="emp-select-pills" id="emp-pills-log"></div>
+      </div>
       <div class="form-group"><label>Kategori</label><div class="cat-grid" id="cat-grid"></div></div>
       <div id="log-extra-fields"></div>
       <div class="form-group"><label>Kommentar (valgfri)</label><textarea id="log-comment" placeholder="Tilføj kommentar..."></textarea></div>
@@ -342,6 +398,7 @@
       <div><div class="view-title">Medarbejdere</div><div style="font-size:0.85rem;color:var(--text2)">Administrer alle chauffører</div></div>
       <div style="display:flex;gap:8px">
         <button class="btn btn-ghost btn-sm" onclick="openImportModal()">📥 Importer Excel</button>
+        <button class="btn btn-ghost btn-sm" id="merge-emp-btn" style="display:none" onclick="openMergeModal()">🔗 Flet</button>
         <button class="btn btn-primary btn-sm" onclick="openEmpModal()">+ Ny</button>
       </div>
     </div>
@@ -365,8 +422,10 @@
   <div class="view" id="view-cards">
     <div class="view-title">Kort & Brikker</div>
     <div class="view-sub">Brændstofkort, ladebrikker, bilnøgler og Evotec brikker</div>
-    <div style="display:flex;gap:8px;margin-bottom:16px">
+    <div class="stats-strip" id="card-stats-strip" style="margin-bottom:14px"></div>
+    <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
       <button class="btn btn-primary btn-sm" onclick="openCardModal()">+ Tildel kort/brik</button>
+      <button class="btn btn-ghost btn-sm" id="card-view-toggle" onclick="toggleCardHistoryView()">📜 Vis historik</button>
     </div>
     <div class="search-wrap"><span class="search-icon">🔍</span><input type="text" placeholder="Søg medarbejder..." id="card-search" oninput="renderCards()" /></div>
     <div class="filter-bar">
@@ -376,14 +435,19 @@
       <button class="filter-chip" onclick="setCardFilter('key',this)">🔑 Bilnøgle</button>
       <button class="filter-chip" onclick="setCardFilter('evotec',this)">📟 Evotec</button>
     </div>
+
+    <!-- Normal view -->
     <div id="cards-list"></div>
+
+    <!-- History view -->
+    <div id="cards-history" style="display:none"></div>
   </div>
 
   <!-- INDSTILLINGER -->
   <div class="view" id="view-settings">
     <div class="view-title">Indstillinger</div>
     <div class="view-sub">Tilpas kategorier og data</div>
-            <div class="card" id="install-card">
+    <div class="card" id="install-card">
       <div class="section-title">📲 Installer app</div>
       <p style="font-size:0.85rem;color:var(--text2);margin-bottom:14px">Tilføj Lines.Note til din hjemmeskærm og brug den som en rigtig app.</p>
       <button class="btn btn-primary" id="install-btn-main" onclick="var o=document.getElementById('install-guide-overlay');if(o)o.style.display='flex'">📲 Installer app</button>
@@ -422,6 +486,225 @@
       </div>
     </div>
     <div id="audit-list"></div>
+  </div>
+
+  <!-- BRÆNDSTOF (Umar + Aaron + PIN) -->
+  <div class="view" id="view-fuel">
+    <!-- PIN GATE -->
+    <div id="fuel-pin-gate">
+      <div class="card" style="text-align:center;padding:40px 20px">
+        <div style="font-size:2.5rem;margin-bottom:12px">🔒</div>
+        <div class="view-title" style="font-size:1.1rem">Brændstof Rapport</div>
+        <div class="view-sub">Indtast PIN-kode for adgang</div>
+        <div style="max-width:200px;margin:0 auto">
+          <input type="password" id="fuel-pin-input" maxlength="4" inputmode="numeric" placeholder="••••" style="text-align:center;font-size:1.4rem;font-family:var(--mono);letter-spacing:8px" onkeydown="if(event.key==='Enter')checkFuelPin()" />
+        </div>
+        <button class="btn btn-primary" style="margin-top:14px" onclick="checkFuelPin()">🔓 Lås op</button>
+        <div id="fuel-pin-error" style="display:none;margin-top:10px;font-size:0.82rem;color:var(--red)"></div>
+      </div>
+    </div>
+
+    <!-- FUEL CONTENT (hidden until PIN ok) -->
+    <div id="fuel-content" style="display:none">
+      <div class="row-between" style="margin-bottom:18px">
+        <div><div class="view-title">⛽ Brændstof Rapport</div><div class="view-sub">Shell tankfaktura → overblik pr. kort & medarbejder</div></div>
+        <button class="btn btn-ghost btn-sm" onclick="lockFuel()">🔒 Lås</button>
+      </div>
+
+      <!-- UPLOAD -->
+      <div class="card" id="fuel-upload-card">
+        <div class="section-title">📄 Upload brændstof / lade-fil</div>
+        <div id="fuel-upload-zone" style="border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;cursor:pointer" onclick="document.getElementById('fuel-file-input').click()">
+          <input type="file" id="fuel-file-input" accept=".pdf,.xlsx,.xls,.csv" style="display:none" />
+          <div style="font-size:2rem;margin-bottom:8px;opacity:0.5">📄</div>
+          <div style="font-size:0.9rem;font-weight:600">Træk fil hertil eller klik</div>
+          <div style="font-size:0.78rem;color:var(--text3);margin-top:4px">Shell / euroShell (PDF) eller lade-transaktioner (XLSX/CSV)</div>
+          <div style="display:flex;gap:6px;justify-content:center;margin-top:10px">
+            <span style="font-size:0.65rem;font-family:var(--mono);padding:3px 10px;border-radius:20px;border:1px solid var(--border);color:var(--text3)">PDF</span>
+            <span style="font-size:0.65rem;font-family:var(--mono);padding:3px 10px;border-radius:20px;border:1px solid var(--border);color:var(--text3)">XLSX</span>
+            <span style="font-size:0.65rem;font-family:var(--mono);padding:3px 10px;border-radius:20px;border:1px solid var(--border);color:var(--text3)">CSV</span>
+          </div>
+        </div>
+        <div id="fuel-parse-status" style="display:none;margin-top:10px;display:flex;align-items:center;gap:10px">
+          <div class="spinner" style="width:18px;height:18px;border-width:2.5px;display:block"></div>
+          <span style="font-size:0.82rem;color:var(--text2)">Analyserer PDF...</span>
+        </div>
+        <div id="fuel-parse-error" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;font-size:0.82rem"></div>
+      </div>
+
+      <!-- PARSED RESULTS -->
+      <div id="fuel-results" style="display:none">
+        <!-- Summary -->
+        <div class="stats-strip" style="margin-top:16px">
+          <div class="stat-chip"><div class="num" id="fuel-total-cards" style="color:var(--yellow)">0</div><div class="lbl">Antal kort</div></div>
+          <div class="stat-chip"><div class="num" id="fuel-total-netto" style="color:var(--accent2)">0</div><div class="lbl">Total netto</div></div>
+          <div class="stat-chip"><div class="num" id="fuel-total-rabat" style="color:var(--green)">0</div><div class="lbl">Total rabat</div></div>
+        </div>
+
+        <!-- Kort → Medarbejder matching -->
+        <div class="card">
+          <div class="section-title">🔗 Tildel kort til medarbejdere</div>
+          <div id="fuel-card-match" style="max-height:400px;overflow-y:auto"></div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn btn-primary btn-sm" onclick="saveFuelReport()">💾 Gem rapport i Firebase</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportFuelCSV()">⬇ CSV</button>
+            <button class="btn btn-ghost btn-sm" onclick="resetFuel()">↻ Ny fil</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SAVED REPORTS / STATISTICS -->
+      <div class="card" style="margin-top:16px">
+        <div class="section-title">📊 Statistik & Historik</div>
+        <div class="filter-bar" style="margin-bottom:12px">
+          <button class="filter-chip active" onclick="setFuelStatView('company',this)">🏢 Firma total</button>
+          <button class="filter-chip" onclick="setFuelStatView('employee',this)">👤 Pr. medarbejder</button>
+          <button class="filter-chip" onclick="setFuelStatView('reports',this)">📋 Rapporter</button>
+        </div>
+        <div id="fuel-stats-content"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FERIE & FRIDAGE -->
+  <div class="view" id="view-vacation">
+    <div class="row-between" style="margin-bottom:14px">
+      <div><div class="view-title">🏖️ Ferier & Fridage</div><div class="view-sub">Kalender, anmodninger og godkendelse</div></div>
+      <button class="btn btn-primary btn-sm" onclick="openModal('vac-req-modal')">+ Ny anmodning</button>
+    </div>
+
+    <!-- Sub tabs -->
+    <div class="vac-subtabs">
+      <button class="vac-subtab active" onclick="setVacView('calendar',this)">📅 Kalender</button>
+      <button class="vac-subtab" onclick="setVacView('pending',this)">⏳ Afventer<span id="vac-pending-dot"></span></button>
+      <button class="vac-subtab" onclick="setVacView('all',this)">📋 Alle</button>
+    </div>
+
+    <!-- Calendar view -->
+    <div id="vac-calendar-view">
+      <div class="card">
+        <div class="vac-cal-nav">
+          <button onclick="vacChangeMonth(-1)">‹</button>
+          <h3 id="vac-cal-title"></h3>
+          <button onclick="vacChangeMonth(1)">›</button>
+        </div>
+        <div id="vac-legend" class="vac-legend"></div>
+        <div class="vac-cal-grid" id="vac-cal-grid"></div>
+      </div>
+      <div id="vac-month-list" style="margin-top:12px"></div>
+    </div>
+
+    <!-- Pending view -->
+    <div id="vac-pending-view" style="display:none">
+      <div id="vac-pending-list"></div>
+    </div>
+
+    <!-- All requests view -->
+    <div id="vac-all-view" style="display:none">
+      <div class="filter-bar" style="margin-bottom:12px">
+        <button class="filter-chip active" onclick="setVacFilter('all',this)">Alle</button>
+        <button class="filter-chip" onclick="setVacFilter('approved',this)">✅ Godkendt</button>
+        <button class="filter-chip" onclick="setVacFilter('pending',this)">⏳ Afventer</button>
+        <button class="filter-chip" onclick="setVacFilter('rejected',this)">❌ Afslået</button>
+      </div>
+      <div id="vac-all-list"></div>
+    </div>
+  </div>
+
+  <!-- VAC REQUEST MODAL -->
+  <div class="modal-overlay" id="vac-req-modal">
+    <div class="modal">
+      <div class="modal-title"><span>🏖️ Ny ferie/fridags-anmodning</span><button class="modal-close" onclick="closeModal('vac-req-modal')">✕</button></div>
+      <div class="form-group"><label>Medarbejder</label><select id="vac-req-emp"></select></div>
+      <div class="form-group"><label>Type</label>
+        <select id="vac-req-type">
+          <option value="ferie">🌴 Ferie</option>
+          <option value="fridag">🏖 Fridag</option>
+          <option value="feriefridag">📅 Feriefridag</option>
+          <option value="afspadsering">⏰ Afspadsering</option>
+          <option value="barns_sygedag">👶 Barns sygedag</option>
+          <option value="orlov">📋 Orlov</option>
+        </select>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Fra dato</label><input type="date" id="vac-req-start" /></div>
+        <div class="form-group"><label>Til dato</label><input type="date" id="vac-req-end" /></div>
+      </div>
+      <div class="form-group"><label>Note (valgfri)</label><textarea id="vac-req-note" placeholder="Evt. kommentar..."></textarea></div>
+      <div class="form-group" style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:0.83rem;color:var(--text2)">
+        ✍️ Registreret af: <span id="vac-req-by" style="color:#d8b4fe;font-family:var(--mono);font-weight:700">—</span>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn btn-ghost" style="flex:1" onclick="closeModal('vac-req-modal')">Annuller</button>
+        <button class="btn btn-primary" style="flex:1" id="vac-save-btn" onclick="saveVacRequest()">Send anmodning</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOKUSCAN -->
+  <div class="view" id="view-scanner">
+    <div class="view-title">📸 DokuScan</div>
+    <div class="view-sub">Scan en faktura/regning → gemmes automatisk som "Regning modtaget"</div>
+
+    <div class="card" id="scan-api-card">
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <div class="section-title" style="margin-bottom:0">🔑 Gemini Proxy</div>
+        <button class="btn btn-ghost btn-sm" onclick="setScanProxy()">⚙ Konfigurer</button>
+      </div>
+      <div id="scan-api-status" style="margin-top:8px;font-size:0.82rem"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">📎 Upload dokument</div>
+      <div id="scan-upload-zone" style="border:2px dashed var(--border);border-radius:12px;padding:28px;text-align:center;transition:all 0.2s">
+        <input type="file" id="scan-file-input" accept="image/*" style="display:none" />
+        <input type="file" id="scan-camera-input" accept="image/*" capture="environment" style="display:none" />
+        <div id="scan-placeholder" style="cursor:pointer" onclick="document.getElementById('scan-file-input').click()">
+          <div style="font-size:2rem;margin-bottom:8px;opacity:0.5">📎</div>
+          <div style="font-size:0.9rem;font-weight:600;color:var(--text)">Træk billede hertil eller klik</div>
+          <div style="font-size:0.78rem;color:var(--text3);margin-top:4px">JPG, PNG</div>
+          <div style="display:flex;gap:8px;justify-content:center;margin-top:12px">
+            <button class="btn btn-ghost btn-sm" onclick="event.stopPropagation();document.getElementById('scan-camera-input').click()">📸 Kamera</button>
+          </div>
+        </div>
+        <div id="scan-img-preview" style="display:none"></div>
+        <div id="scan-new-upload" style="display:none;margin-top:10px">
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('scan-file-input').click()">📁 Vælg ny fil</button>
+          <button class="btn btn-ghost btn-sm" onclick="document.getElementById('scan-camera-input').click()">📸 Nyt foto</button>
+        </div>
+      </div>
+      <div id="scan-status" style="display:none;margin-top:12px;align-items:center;gap:10px">
+        <div class="spinner" style="width:18px;height:18px;border-width:2.5px"></div>
+        <span style="font-size:0.85rem;color:var(--text2)" id="scan-status-text">Analyserer...</span>
+      </div>
+      <div id="scan-error" style="display:none;margin-top:10px;padding:10px 14px;border-radius:8px;background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;font-size:0.85rem"></div>
+    </div>
+
+    <div class="card" id="scan-results-card" style="display:none">
+      <div class="section-title">✅ Scannet data — Regning modtaget</div>
+      <div class="form-group"><label>Medarbejder</label><div class="emp-select-pills" id="scan-emp-pills"></div></div>
+      <div class="grid-2">
+        <div class="form-group"><label>Type</label>
+          <select id="scan-inv-type">
+            <option>Bøde</option><option>Værksted</option><option>Vejhjælp</option><option>Selvrisiko</option><option>Andet</option>
+          </select>
+        </div>
+        <div class="form-group"><label>Beløb (kr.)</label><input type="text" id="scan-inv-amount" placeholder="0,00" inputmode="decimal" /></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Afsender / Firma</label><input type="text" id="scan-inv-sender" placeholder="Fx Rigspolitiet" /></div>
+        <div class="form-group"><label>Reference / Fakturanr.</label><input type="text" id="scan-inv-ref" placeholder="Valgfri" /></div>
+      </div>
+      <div class="grid-2">
+        <div class="form-group"><label>Dato</label><input type="date" id="scan-inv-date" /></div>
+        <div class="form-group"><label>CVR-nummer</label><input type="text" id="scan-inv-cvr" placeholder="Valgfri" inputmode="numeric" maxlength="8" /></div>
+      </div>
+      <div class="form-group"><label>Kommentar</label><textarea id="scan-inv-comment" placeholder="Evt. detaljer fra fakturaen..."></textarea></div>
+      <div class="form-group" style="background:var(--surface2);border-radius:8px;padding:10px 12px;font-size:0.83rem;color:var(--text2)">
+        ✍️ Registreres af: <span id="scan-ansvarlig" style="color:#d8b4fe;font-family:var(--mono);font-weight:700">—</span>
+      </div>
+      <button class="btn btn-primary" style="width:100%" id="scan-save-btn" onclick="saveScanAsInvoice()">💾 Gem som "Regning modtaget"</button>
+    </div>
   </div>
 
 </div><!-- end #app -->
@@ -534,6 +817,7 @@
         <input type="checkbox" class="tag-check" id="exp-include-logs" checked /><label for="exp-include-logs">Noteringer</label>
         <input type="checkbox" class="tag-check" id="exp-include-cards" checked /><label for="exp-include-cards">Kort & Brikker</label>
         <input type="checkbox" class="tag-check" id="exp-include-invoices" checked /><label for="exp-include-invoices">Regninger</label>
+        <span id="exp-fuel-option" style="display:none"><input type="checkbox" class="tag-check" id="exp-include-fuel" checked /><label for="exp-include-fuel">⛽ Brændstof</label></span>
       </div>
     </div>
     <div style="display:flex;gap:8px">
@@ -548,6 +832,23 @@
   <div class="modal">
     <div class="modal-title"><span>👤 Medarbejder profil</span><button class="modal-close" onclick="closeModal('log-detail-modal')">✕</button></div>
     <div id="log-detail-content"></div>
+  </div>
+</div>
+
+<!-- MERGE EMPLOYEES MODAL (Umar + Aaron) -->
+<div class="modal-overlay" id="merge-emp-modal">
+  <div class="modal">
+    <div class="modal-title"><span>🔗 Flet medarbejdere</span><button class="modal-close" onclick="closeModal('merge-emp-modal')">✕</button></div>
+    <p style="font-size:0.82rem;color:var(--text2);margin-bottom:14px">Vælg den medarbejder der skal <strong>beholdes</strong> (primær), og de medarbejdere der skal <strong>slettes</strong> (dubletter). Alle noteringer, kort og ferier flyttes til den primære.</p>
+    <div class="form-group"><label>Primær medarbejder (beholdes)</label><select id="merge-primary"></select></div>
+    <div class="form-group"><label>Flet disse ind i primær (slettes)</label>
+      <div id="merge-secondary-list" style="max-height:200px;overflow-y:auto"></div>
+    </div>
+    <div id="merge-preview" style="font-size:0.82rem;color:var(--text2);margin-bottom:10px"></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal('merge-emp-modal')">Annuller</button>
+      <button class="btn btn-danger" style="flex:1" id="merge-confirm-btn" onclick="executeMerge()">🔗 Flet nu</button>
+    </div>
   </div>
 </div>
 
@@ -654,6 +955,9 @@ function applyUser(name){
   if(el) el.textContent = name || '—';
   const el2 = document.getElementById('edit-ansvarlig-name');
   if(el2) el2.textContent = name || '—';
+  updateFuelTabVisibility();
+  const mergeBtn = document.getElementById('merge-emp-btn');
+  if(mergeBtn) mergeBtn.style.display = (['Umar','Aaron'].includes(name)) ? '' : 'none';
 }
 window.switchUser = function(){
   sessionStorage.removeItem('ln_session_user');
@@ -715,6 +1019,8 @@ setTimeout(() => { if (!_appShown) showApp(); }, 5000);
 
 function showApp() {
   _appShown = true;
+  // Apply saved theme immediately
+  if(localStorage.getItem('ln_theme') === 'light') document.body.classList.add('light');
   document.getElementById('loading-screen').style.display = 'none';
   // If user already chosen in this session, skip login
   if(currentUser && sessionStorage.getItem('ln_session_user')) {
@@ -744,6 +1050,7 @@ window.loginCustom = function(){
 // ═══════════════════════════════════════════════════
 function initUI() {
   initUserSelector();
+  initTheme();
   const today = todayStr();
   const mo = new Date(Date.now()-30*864e5).toISOString().split('T')[0];
   document.getElementById('log-date').value   = today;
@@ -762,6 +1069,29 @@ function initUI() {
     m.addEventListener('click', e => { if(e.target===m) m.classList.remove('open'); }));
   document.getElementById('import-file').addEventListener('change', previewImport);
   renderCatGrid(); renderOverview(); renderHistory(); renderCards();
+  startVacListener(); // Start listening for vacation requests (notifications)
+}
+
+// ═══════════════════════════════════════════════════
+//  THEME TOGGLE (LYS / MØRK)
+// ═══════════════════════════════════════════════════
+function initTheme(){
+  const saved = localStorage.getItem('ln_theme');
+  if(saved === 'light') document.body.classList.add('light');
+  updateThemeBtn();
+}
+window.toggleTheme = function(){
+  document.body.classList.toggle('light');
+  const isLight = document.body.classList.contains('light');
+  localStorage.setItem('ln_theme', isLight ? 'light' : 'dark');
+  updateThemeBtn();
+  // Update meta theme-color
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if(meta) meta.content = isLight ? '#f0f5ec' : '#0d1a08';
+};
+function updateThemeBtn(){
+  const btn = document.getElementById('theme-toggle-btn');
+  if(btn) btn.textContent = document.body.classList.contains('light') ? '🌙' : '☀️';
 }
 
 function todayStr(){ return new Date().toISOString().split('T')[0]; }
@@ -775,14 +1105,18 @@ const BUILTIN = [
   {id:'noshow',icon:'🚫',label:'Møder ikke op',color:'red',fields:[]},
   {id:'help_delivery',icon:'📦',label:'Hjælp m. levering',color:'blue',fields:[{id:'hours',label:'Timer',type:'number',placeholder:'2'},{id:'stops',label:'Antal stop',type:'number',placeholder:'10'}]},
   {id:'vehicle_damage',icon:'🚗',label:'Skade på bil',color:'red',fields:[{id:'damage_desc',label:'Beskriv skaden',type:'text',placeholder:'Ridse venstre side'}]},
+  {id:'help_pickup',icon:'🔄',label:'Hjælp m. afhentning',color:'cyan',fields:[{id:'pickup_count',label:'Antal afhentninger',type:'number',placeholder:'5'}]},
   {id:'materials',icon:'📋',label:'Materialer',color:'purple',fields:[{id:'mat_items',label:'Materialer udleveret',type:'tags',options:['Film/folie','Blå strips','Sækkevogn','Palleløfter','Uniform','Brandslukker','Spildkit']}]},
+  {id:'wrong_tour',icon:'🗺️',label:'Forkert tur nr.',color:'yellow',fields:[{id:'wrong_tur',label:'Scannet tur nr.',type:'text',placeholder:'T-99'}]},
   {id:'fuel_card',icon:'⛽',label:'Ny brændstofkort/brik',color:'green',fields:[{id:'card_type',label:'Type',type:'select',options:['Brændstofkort','Ladebrik','Begge']}]},
   {id:'car_rental',icon:'🔑',label:'Lejet bil fra os',color:'blue',fields:[{id:'rental_from',label:'Fra dato',type:'date'},{id:'rental_to',label:'Til dato',type:'date'},{id:'car_reg',label:'Reg. nr.',type:'text',placeholder:'AB12345'}]},
   {id:'new_employee',icon:'🆕',label:'Ny medarbejder info',color:'green',fields:[{id:'training_start',label:'Oplæring startdato',type:'date'},{id:'first_drive',label:'Første køredag',type:'date'}]},
+  {id:'external_drive',icon:'🚛',label:'Kørsel for ekstern vognmand',color:'cyan',fields:[{id:'ext_company',label:'Vognmand / firma',type:'text',placeholder:'Firma ApS'},{id:'ext_hours',label:'Timer kørt',type:'number',placeholder:'8'},{id:'ext_date',label:'Dato',type:'date'}]},
   {id:'invoice',icon:'💸',label:'Regning modtaget',color:'red',fields:[{id:'inv_type',label:'Type',type:'select',options:['Bøde','Værksted','Vejhjælp','Selvrisiko','Andet']},{id:'inv_sender',label:'Afsender',type:'text',placeholder:'Fx Rigspolitiet'},{id:'inv_amount',label:'Beløb (kr.)',type:'number',placeholder:'1500'},{id:'inv_ref',label:'Reference',type:'text',placeholder:'Valgfri'}]},
   {id:'timeclock',icon:'🕐',label:'Tidsregistrering app',color:'cyan',fields:[{id:'tc_status',label:'Status',type:'select',options:['Tjekket ind','Tjekket ud','Glemt check-ind','Glemt check-ud','App-fejl']},{id:'tc_time',label:'Tidspunkt',type:'text',placeholder:'Fx 07:42'},{id:'tc_note',label:'Bemærkning',type:'text',placeholder:'Fx kunne ikke logge ind'}]},
   {id:'kantsten_tur',icon:'🚚',label:'Kantsten tur',color:'blue',fields:[{id:'est_tid',label:'Estimeret tid på turen',type:'text',placeholder:'Fx 4t 30m'},{id:'antal_stop',label:'Antal stop',type:'number',placeholder:'12'},{id:'kantsten_note',label:'Bemærkning',type:'text',placeholder:'Valgfri'}]},
   {id:'indbaring_tur',icon:'🏠',label:'Indbæring tur',color:'purple',fields:[{id:'est_tid',label:'Estimeret tid på turen',type:'text',placeholder:'Fx 6t 00m'},{id:'antal_stop',label:'Antal stop',type:'number',placeholder:'8'},{id:'indbaring_note',label:'Bemærkning',type:'text',placeholder:'Valgfri'}]},
+  {id:'vacation',icon:'🏖️',label:'Ferie',color:'blue',fields:[{id:'vac_from',label:'Fra dato',type:'date'},{id:'vac_to',label:'Til dato',type:'date'},{id:'vac_type',label:'Type',type:'select',options:['Ferie','Feriefridag','Afspadsering','Barns sygedag','Orlov']},{id:'vac_days',label:'Antal dage',type:'number',placeholder:'5'}]},
   {id:'other',icon:'📝',label:'Andet',color:'gray',fields:[]},
 ];
 function allCats(){ return [...BUILTIN,...customCats.map(c=>({...c,isCustom:true}))]; }
@@ -803,6 +1137,9 @@ function showView(id,btn){
   if(id==='cards')    renderCards();
   if(id==='settings') renderCustomCatsList();
   if(id==='auditlog') renderAuditLog();
+  if(id==='scanner') initScanner();
+  if(id==='fuel' && !_fuelUnlocked) { /* PIN gate shows by default */ }
+  if(id==='vacation') initVacation();
 }
 window.showView = showView;
 
@@ -816,7 +1153,12 @@ function renderCatGrid(){
       <span class="cat-icon">${c.icon}</span>${c.label}
     </button>`).join('');
 }
-window.selectCategory = function(id){ selectedCategory=id; renderCatGrid(); renderExtraFields(); };
+window.selectCategory = function(id){
+  selectedCategory=id;
+  renderCatGrid(); renderExtraFields();
+  const btn=document.getElementById('save-log-btn');
+  if(btn) btn.textContent = id==='vacation' ? '📋 Opret ferie-anmodning' : '💾 Gem notering';
+};
 
 function renderExtraFields(){
   const cat=catMap()[selectedCategory];
@@ -841,9 +1183,17 @@ function renderExtraFields(){
 // ═══════════════════════════════════════════════════
 function renderEmpPills(){
   const c=document.getElementById('emp-pills-log'); if(!c) return;
-  c.innerHTML = employees.length
-    ? employees.map(e=>`<div class="emp-pill ${selectedEmpId===e.id?'selected':''}" onclick="selectEmp('${e.id}')">${e.tur} — ${e.name.split(' ')[0]}</div>`).join('')
-    : '<span style="color:var(--text3);font-size:0.85rem">Ingen medarbejdere endnu</span>';
+  const q=(document.getElementById('emp-pill-search')?.value||'').toLowerCase();
+  const sorted = [...employees].sort((a,b) => {
+    const na = parseInt(a.tur.replace(/\D/g,'')) || 0;
+    const nb = parseInt(b.tur.replace(/\D/g,'')) || 0;
+    return na - nb || a.name.localeCompare(b.name);
+  });
+  const filtered = q ? sorted.filter(e => e.tur.toLowerCase().includes(q) || e.name.toLowerCase().includes(q)) : sorted;
+  c.innerHTML = filtered.length
+    ? filtered.map(e=>`<div class="emp-pill ${selectedEmpId===e.id?'selected':''}" onclick="selectEmp('${e.id}')">${e.tur} — ${e.name.split(' ')[0]}</div>`).join('')
+    : q ? '<span style="color:var(--text3);font-size:0.85rem">Ingen match</span>'
+        : '<span style="color:var(--text3);font-size:0.85rem">Ingen medarbejdere endnu</span>';
 }
 window.selectEmp = function(id){ selectedEmpId=id; renderEmpPills(); };
 
@@ -862,6 +1212,51 @@ window.saveLog = async function() {
     else extra[f.id]=document.getElementById('field_'+f.id)?.value||'';
   });
   if(!currentUser){ toast('⚠️ Vælg hvem du er øverst på siden'); btn.disabled=false; btn.textContent='💾 Gem notering'; return; }
+
+  // ── FERIE: Opret som anmodning i stedet for notering ──
+  if(selectedCategory === 'vacation'){
+    const vacFrom = extra.vac_from;
+    const vacTo = extra.vac_to;
+    if(!vacFrom || !vacTo){ toast('⚠️ Vælg fra- og til-dato'); btn.disabled=false; btn.textContent='💾 Gem notering'; return; }
+    if(vacFrom > vacTo){ toast('⚠️ Fra-dato skal være før til-dato'); btn.disabled=false; btn.textContent='💾 Gem notering'; return; }
+
+    const vacTypeMap = {'Ferie':'ferie','Feriefridag':'feriefridag','Afspadsering':'afspadsering','Barns sygedag':'barns_sygedag','Orlov':'orlov'};
+    const vacType = vacTypeMap[extra.vac_type] || 'ferie';
+    const emp = employees.find(e=>e.id===selectedEmpId)||{name:'?',tur:'-'};
+    const comment = document.getElementById('log-comment').value;
+
+    try {
+      setSyncing();
+      const ref = await _add('lines_vacRequests', {
+        empId: selectedEmpId,
+        type: vacType,
+        startDate: vacFrom,
+        endDate: vacTo,
+        note: comment,
+        status: 'pending',
+        registeredBy: currentUser,
+        createdAt: new Date().toISOString()
+      });
+      await _add('lines_auditLogs',{
+        action:'create', logId:'vac_'+ref.id,
+        isVacation:true,
+        snapshot:{empId:selectedEmpId, empName:emp.name, empTur:emp.tur, type:vacType, startDate:vacFrom, endDate:vacTo, category:'🏖️ '+(VAC_TYPE_LABELS[vacType]||vacType)},
+        by:currentUser,
+        timestamp:new Date().toISOString()
+      });
+      setSynced();
+      selectedCategory=null; selectedEmpId=null;
+      document.getElementById('log-comment').value='';
+      document.getElementById('log-extra-fields').innerHTML='';
+      renderCatGrid(); renderEmpPills();
+      toast('✅ Ferie-anmodning oprettet! Afventer godkendelse.');
+      vacNotify('📋 Ny ferieanmodning',`${emp.name} har anmodet om ${VAC_TYPE_LABELS[vacType]||vacType}`);
+    } catch(e){ toast('❌ '+e.message); }
+    btn.disabled=false; btn.textContent='💾 Gem notering';
+    return;
+  }
+
+  // ── Normal notering ──
   try {
     setSyncing();
     const logData = {
@@ -873,7 +1268,6 @@ window.saveLog = async function() {
       createdAt: new Date().toISOString()
     };
     const ref = await _add('lines_logs', logData);
-    // Write audit entry
     await _add('lines_auditLogs',{
       action:'create', logId:ref.id,
       snapshot: logData,
@@ -933,7 +1327,12 @@ window.openEditLogModal = function(id){
 
 function renderEditEmpPills(){
   const c=document.getElementById('edit-emp-pills'); if(!c) return;
-  c.innerHTML = employees.map(e=>
+  const sorted = [...employees].sort((a,b) => {
+    const na = parseInt(a.tur.replace(/\D/g,'')) || 0;
+    const nb = parseInt(b.tur.replace(/\D/g,'')) || 0;
+    return na - nb || a.name.localeCompare(b.name);
+  });
+  c.innerHTML = sorted.map(e=>
     `<div class="emp-pill ${editSelectedEmpId===e.id?'selected':''}" onclick="selectEditEmp('${e.id}')">${e.tur} — ${e.name.split(' ')[0]}</div>`
   ).join('');
 }
@@ -1023,7 +1422,11 @@ window.saveEditLog = async function(){
 function renderEmployees(){
   const q=(document.getElementById('emp-search')?.value||'').toLowerCase();
   const list=document.getElementById('emp-list'); if(!list) return;
-  const filtered=employees.filter(e=>e.name.toLowerCase().includes(q)||e.tur.toLowerCase().includes(q));
+  const filtered=employees.filter(e=>e.name.toLowerCase().includes(q)||e.tur.toLowerCase().includes(q))
+    .sort((a,b)=>{
+      const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+      return na-nb || a.name.localeCompare(b.name);
+    });
   if(!filtered.length){
     list.innerHTML=`<div class="empty"><div class="empty-icon">👥</div><div style="font-size:0.9rem">${q?'Ingen resultater':'Ingen medarbejdere endnu'}</div></div>`;
     return;
@@ -1207,8 +1610,12 @@ window.updateCardFields = function(){
 };
 
 window.openCardModal = function(){
+  const sorted = [...employees].sort((a,b)=>{
+    const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+    return na-nb || a.name.localeCompare(b.name);
+  });
   document.getElementById('card-emp-sel').innerHTML='<option value="">Vælg medarbejder...</option>'+
-    employees.map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
+    sorted.map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
   document.getElementById('card-date').value=''; document.getElementById('card-date').value=todayStr();
   document.getElementById('card-note').value='';
   document.getElementById('card-type-sel').value='fuel';
@@ -1228,10 +1635,7 @@ window.saveCard = async function(){
   try{
     setSyncing();
     const b=_newBatch();
-    if(type==='fuel'||type==='charge'){
-      cards.filter(c=>c.empId===empId&&c.type===type&&c.active)
-        .forEach(c=>_batchUpdate(b,'lines_cards',c.id,{active:false,returnedDate:date}));
-    }
+    // Tillader flere aktive kort/brikker af samme type pr. medarbejder
     const ref=_newDocRef('lines_cards');
     b.set(ref,{empId,type,number,date,note,active:true,createdAt:new Date().toISOString()});
     await b.commit();
@@ -1245,6 +1649,22 @@ window.returnCard = async function(id){
   catch(e){ toast('❌ '+e.message); }
 };
 
+window.editCardName = async function(id){
+  const card = cards.find(c=>c.id===id); if(!card) return;
+  const tl={fuel:'Brændstofkort',charge:'Ladebrik',key:'Bilnøgle',evotec:'Evotec brik'};
+  const newNumber = prompt(`Rediger ${tl[card.type]||'kort'} nr./navn:`, card.number||'');
+  if(newNumber===null) return;
+  const newNote = prompt('Rediger note (valgfri):', card.note||'');
+  try{
+    setSyncing();
+    const updates = {number: newNumber.trim()};
+    if(newNote!==null) updates.note = newNote.trim();
+    await _update('lines_cards', id, updates);
+    setSynced();
+    toast('✅ Kort opdateret');
+  }catch(e){ toast('❌ '+e.message); }
+};
+
 window.setCardFilter = function(f,btn){
   _cardFilter=f;
   document.querySelectorAll('#view-cards .filter-chip').forEach(b=>b.classList.remove('active'));
@@ -1253,6 +1673,25 @@ window.setCardFilter = function(f,btn){
 };
 
 function renderCards(){
+  // Stats strip
+  const statsEl=document.getElementById('card-stats-strip');
+  if(statsEl){
+    const activeFuel=cards.filter(c=>c.type==='fuel'&&c.active).length;
+    const activeCharge=cards.filter(c=>c.type==='charge'&&c.active).length;
+    const activeKey=cards.filter(c=>c.type==='key'&&c.active).length;
+    const activeEvotec=cards.filter(c=>c.type==='evotec'&&c.active).length;
+    const totalActive=cards.filter(c=>c.active).length;
+    const totalReturned=cards.filter(c=>!c.active).length;
+    statsEl.innerHTML=[
+      {num:activeFuel,lbl:'⛽ Brændstofkort'},
+      {num:activeCharge,lbl:'🔋 Ladebrikker'},
+      {num:activeKey,lbl:'🔑 Bilnøgler'},
+      {num:activeEvotec,lbl:'📟 Evotec'},
+      {num:totalActive,lbl:'Aktive total'},
+      {num:totalReturned,lbl:'Afleveret'},
+    ].map(s=>`<div class="stat-chip"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+  }
+
   const q=(document.getElementById('card-search')?.value||'').toLowerCase();
   const list=document.getElementById('cards-list'); if(!list) return;
   const filtered=cards.filter(c=>{
@@ -1277,6 +1716,7 @@ function renderCards(){
           ${c.active?'<span class="badge badge-green">Aktiv</span>':'<span class="badge badge-gray">Afleveret</span>'}
           <span class="log-meta">${fmtDate(c.date)}</span>
           ${c.active?`<button class="btn btn-danger btn-sm btn-icon" onclick="returnCard('${c.id}')">↩️</button>`:''}
+          <button class="btn btn-ghost btn-sm btn-icon" onclick="editCardName('${c.id}')" title="Rediger">✏️</button>
         </div>
       </div>
       ${c.number?`<div class="log-details">Nr./ID: <strong>${c.number}</strong></div>`:''}
@@ -1286,6 +1726,110 @@ function renderCards(){
   }).join('');
 }
 window.renderCards = renderCards;
+
+let _cardHistoryMode = false;
+window.toggleCardHistoryView = function(){
+  _cardHistoryMode = !_cardHistoryMode;
+  const btn = document.getElementById('card-view-toggle');
+  const listEl = document.getElementById('cards-list');
+  const histEl = document.getElementById('cards-history');
+  if(_cardHistoryMode){
+    btn.innerHTML = '📋 Vis aktive';
+    listEl.style.display = 'none';
+    histEl.style.display = 'block';
+    renderCardHistory();
+  } else {
+    btn.innerHTML = '📜 Vis historik';
+    listEl.style.display = 'block';
+    histEl.style.display = 'none';
+  }
+};
+
+function renderCardHistory(){
+  const histEl = document.getElementById('cards-history'); if(!histEl) return;
+  const q = (document.getElementById('card-search')?.value||'').toLowerCase();
+  const tl = {fuel:'Brændstofkort',charge:'Ladebrik',key:'Ekstra bilnøgle',evotec:'Evotec brik'};
+  const tc = {fuel:'green',charge:'cyan',key:'yellow',evotec:'purple'};
+  const ti = {fuel:'⛽',charge:'🔋',key:'🔑',evotec:'📟'};
+
+  // Group cards by employee
+  const empMap = {};
+  cards.forEach(c => {
+    if(_cardFilter && c.type !== _cardFilter) return;
+    const emp = employees.find(e => e.id === c.empId);
+    if(q && emp && !emp.name.toLowerCase().includes(q) && !emp.tur.toLowerCase().includes(q)) return;
+    const key = c.empId;
+    if(!empMap[key]) empMap[key] = [];
+    empMap[key].push(c);
+  });
+
+  if(!Object.keys(empMap).length){
+    histEl.innerHTML = '<div class="empty"><div class="empty-icon">📜</div><div style="font-size:0.9rem">Ingen historik fundet</div></div>';
+    return;
+  }
+
+  let html = '';
+  Object.entries(empMap).sort((a,b) => {
+    const ea = employees.find(e=>e.id===a[0]);
+    const eb = employees.find(e=>e.id===b[0]);
+    return (ea?.name||'').localeCompare(eb?.name||'');
+  }).forEach(([empId, empCards]) => {
+    const emp = employees.find(e => e.id === empId) || {name:'Ukendt',tur:'-'};
+    const ini = emp.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+
+    // Sort by date descending
+    empCards.sort((a,b) => (b.date||'').localeCompare(a.date||''));
+
+    const activeCards = empCards.filter(c => c.active);
+    const returnedCards = empCards.filter(c => !c.active);
+
+    html += `<div class="card" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <div class="emp-avatar" style="width:36px;height:36px;font-size:0.65rem">${ini}</div>
+        <div>
+          <div style="font-weight:700;font-size:0.92rem">${emp.name}</div>
+          <div style="font-size:0.78rem;color:var(--accent2);font-family:var(--mono)">Tur ${emp.tur} · ${empCards.length} kort/brikker</div>
+        </div>
+      </div>`;
+
+    // Active cards
+    if(activeCards.length){
+      html += `<div style="font-size:0.75rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px">● Aktive</div>`;
+      activeCards.forEach(c => {
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.15);border-radius:8px;margin-bottom:6px">
+          <div>
+            <span class="badge badge-${tc[c.type]||'gray'}" style="margin-right:6px">${ti[c.type]||'💳'} ${tl[c.type]||c.type}</span>
+            ${c.number?`<span style="font-size:0.82rem;color:var(--text2);font-family:var(--mono)">${c.number}</span>`:''}
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span style="font-size:0.72rem;color:var(--text3);font-family:var(--mono)">${fmtDate(c.date)}</span>
+            <button class="btn btn-danger btn-sm btn-icon" style="padding:3px 6px;font-size:0.7rem" onclick="returnCard('${c.id}')">↩️</button>
+          </div>
+        </div>`;
+      });
+    }
+
+    // Returned cards (history)
+    if(returnedCards.length){
+      html += `<div style="font-size:0.75rem;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:0.5px;margin:${activeCards.length?'12':'0'}px 0 8px">↩ Historik (afleveret)</div>`;
+      returnedCards.forEach(c => {
+        html += `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 12px;border-bottom:1px solid var(--border);opacity:0.7">
+          <div>
+            <span style="font-size:0.78rem;color:var(--text3)">${ti[c.type]||'💳'} ${tl[c.type]||c.type}</span>
+            ${c.number?`<span style="font-size:0.78rem;color:var(--text3);font-family:var(--mono);margin-left:6px">${c.number}</span>`:''}
+          </div>
+          <div style="font-size:0.7rem;color:var(--text3);font-family:var(--mono);text-align:right">
+            <div>${fmtDate(c.date)} → ${c.returnedDate?fmtDate(c.returnedDate):'?'}</div>
+          </div>
+        </div>`;
+      });
+    }
+
+    html += `</div>`;
+  });
+
+  histEl.innerHTML = html;
+}
 
 // ═══════════════════════════════════════════════════
 //  CUSTOM CATEGORIES
@@ -1375,19 +1919,47 @@ window.deleteCustomCat = async function(id){
 function renderOverview(){
   const today=todayStr();
   const el=document.getElementById('stats-strip'); if(!el) return;
+
+  // Count vacations active today
+  const vacToday = (vacRequests||[]).filter(r=>r.status==='approved'&&r.startDate<=today&&r.endDate>=today);
+  const vacPending = (vacRequests||[]).filter(r=>r.status==='pending');
+
   el.innerHTML=[
     {num:employees.length, lbl:'Medarbejdere'},
     {num:logs.filter(l=>l.date===today).length, lbl:'Noteringer i dag'},
     {num:logs.filter(l=>l.category==='sick'&&l.date===today).length, lbl:'Syge i dag'},
     {num:logs.filter(l=>l.category==='late'&&l.date===today).length, lbl:'Forsent i dag'},
     {num:logs.filter(l=>l.category==='noshow'&&l.date===today).length, lbl:'Mødte ikke op'},
+    {num:vacToday.length, lbl:'På ferie i dag'},
+    {num:vacPending.length, lbl:'Ferie afventer'},
     {num:logs.filter(l=>l.category==='invoice').length, lbl:'Regninger total'},
     {num:cards.filter(c=>c.active).length, lbl:'Aktive kort'},
     {num:logs.length, lbl:'Total noteringer'},
   ].map(s=>`<div class="stat-chip"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`).join('');
+
+  // Vacation banner on overview
+  const vacBanner = document.getElementById('overview-vac-banner');
+  if(vacBanner){
+    if(vacToday.length){
+      vacBanner.innerHTML = `<div class="card" style="border-left:3px solid var(--green);margin-bottom:14px">
+        <div class="section-title" style="margin-bottom:10px">🏖️ På ferie i dag (${vacToday.length})</div>
+        ${vacToday.map(r=>{
+          const emp=employees.find(e=>e.id===r.empId)||{name:'?',tur:'-'};
+          const days=Math.round((new Date(r.endDate)-new Date(r.startDate))/864e5)+1;
+          return `<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border)">
+            <span style="font-weight:600;font-size:0.88rem">${emp.name} <span style="color:var(--text3);font-size:0.78rem">(${emp.tur})</span></span>
+            <span style="font-size:0.72rem;color:var(--text3);font-family:var(--mono)">${fmtDate(r.startDate)} – ${fmtDate(r.endDate)} · ${days}d</span>
+          </div>`;
+        }).join('')}
+      </div>`;
+    } else {
+      vacBanner.innerHTML = '';
+    }
+  }
+
   const cm=catMap();
   const rEl=document.getElementById('recent-logs-list'); if(!rEl) return;
-  rEl.innerHTML=logs.slice(0,10).map(l=>renderLogItem(l,cm,false)).join('')
+  rEl.innerHTML=logs.slice(0,5).map(l=>renderLogItem(l,cm,false)).join('')
     ||`<div class="empty"><div class="empty-icon">📋</div><div style="font-size:0.9rem">Ingen noteringer endnu</div></div>`;
 }
 
@@ -1492,10 +2064,19 @@ function renderAuditLog(){
   list.innerHTML=filtered.map(a=>{
     const snap=a.action==='edit'?a.before:a.snapshot;
     const _snapLog = logs.find(l=>l.id===a.logId);
-    const emp=employees.find(e=>e.id===snap?.empId)||
-      {name: snap?._empNameSnapshot||_snapLog?._empNameSnapshot||snap?.empId||'Ukendt',
-       tur:  snap?._empTurSnapshot ||_snapLog?._empTurSnapshot ||'-'};
-    const cat=cm[snap?.category]||{icon:'❓',label:snap?.category||'?'};
+
+    // Handle vacation audit entries
+    const isVac = a.isVacation || (a.logId&&a.logId.startsWith('vac_'));
+    let emp, cat;
+    if(isVac){
+      emp = {name: a.snapshot?.empName||snap?.empName||'?', tur: a.snapshot?.empTur||snap?.empTur||'-'};
+      cat = {icon:'🏖️', label: a.snapshot?.category||snap?.category||'Ferie'};
+    } else {
+      emp=employees.find(e=>e.id===snap?.empId)||
+        {name: snap?._empNameSnapshot||_snapLog?._empNameSnapshot||snap?.empId||'Ukendt',
+         tur:  snap?._empTurSnapshot ||_snapLog?._empTurSnapshot ||'-'};
+      cat=cm[snap?.category]||{icon:'❓',label:snap?.category||'?'};
+    }
     const ts=a.timestamp?new Date(a.timestamp).toLocaleString('da-DK',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}):'';
 
     function diffRow(label,bVal,aVal){
@@ -1513,43 +2094,73 @@ function renderAuditLog(){
 
     let diffHtml='';
     if(a.action==='edit'){
-      const rows=[];
-      rows.push(diffRow('Dato', fmtDate(a.before?.date), fmtDate(a.after?.date)));
-      // Try live employees first, then snapshot stored on the log, then raw id
-      const _logSnap = logs.find(l=>l.id===a.logId);
-      const eb=employees.find(e=>e.id===a.before?.empId)||
-               {name: a.before?._empNameSnapshot||_logSnap?._empNameSnapshot||a.before?.empId||'?',
-                tur:  a.before?._empTurSnapshot ||_logSnap?._empTurSnapshot ||''};
-      const ea=employees.find(e=>e.id===a.after?.empId)||
-               {name: a.after?._empNameSnapshot||_logSnap?._empNameSnapshot||a.after?.empId||'?',
-                tur:  a.after?._empTurSnapshot ||_logSnap?._empTurSnapshot ||''};
-      rows.push(diffRow('Medarbejder', eb.name+(eb.tur?' ('+eb.tur+')':''), ea.name+(ea.tur?' ('+ea.tur+')':'')));
-      const cb=cm[a.before?.category]||{label:a.before?.category||'?'};
-      const ca=cm[a.after?.category]||{label:a.after?.category||'?'};
-      rows.push(diffRow('Kategori', cb.icon+' '+cb.label, ca.icon+' '+ca.label));
-      rows.push(diffRow('Kommentar', a.before?.comment, a.after?.comment));
-      // Extra fields
-      const allFids=[...new Set([...Object.keys(a.before?.extra||{}),...Object.keys(a.after?.extra||{})])];
-      allFids.forEach(fid=>{
-        const bv=a.before?.extra?.[fid]; const av=a.after?.extra?.[fid];
-        const bStr=Array.isArray(bv)?bv.join(', '):(bv||'');
-        const aStr=Array.isArray(av)?av.join(', '):(av||'');
-        if(bStr!==aStr){
-          const fld=(cm[a.after?.category]?.fields||[]).find(f=>f.id===fid)||{label:fid};
-          rows.push(diffRow(fld.label, bStr, aStr));
-        }
-      });
-      const filled=rows.filter(Boolean);
-      if(filled.length) diffHtml=`<div class="audit-diff">${filled.join('')}</div>`;
+      // Merge entries
+      const isMerge = a.logId?.startsWith('merge_') || a.snapshot?.action==='merge';
+      if(isMerge){
+        const s = a.snapshot||{};
+        diffHtml=`<div class="audit-diff">
+          <div style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">🔗 Medarbejder flettet</div>
+          <div class="before">❌ ${s.fromEmp||'?'} (${s.fromTur||'-'}) — slettet</div>
+          <div class="after">✅ Flettet ind i ${s.toEmp||'?'} (${s.toTur||'-'})</div>
+          <div style="margin-top:4px;font-size:0.78rem;color:var(--text3)">${s.movedLogs||0} noteringer · ${s.movedCards||0} kort · ${s.movedVacs||0} ferier flyttet</div>
+        </div>`;
+      }
+      // Vacation decision entries
+      else if(isVac){
+        const s = a.snapshot||{};
+        const statusLabel = a.after?.status==='approved'?'✅ Godkendt':a.after?.status==='rejected'?'❌ Afslået':'Ændret';
+        diffHtml=`<div class="audit-diff">
+          <div style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Ferie ${statusLabel}</div>
+          <div class="after">🏖️ ${s.category||'Ferie'} — ${s.empName||emp.name} (${s.empTur||emp.tur})</div>
+          ${s.startDate?`<div class="after" style="margin-top:3px">📅 ${fmtDate(s.startDate)} – ${fmtDate(s.endDate)}</div>`:''}
+        </div>`;
+      }
+      // Normal edit
+      else {
+        const rows=[];
+        rows.push(diffRow('Dato', fmtDate(a.before?.date), fmtDate(a.after?.date)));
+        const _logSnap = logs.find(l=>l.id===a.logId);
+        const eb=employees.find(e=>e.id===a.before?.empId)||
+                 {name: a.before?._empNameSnapshot||_logSnap?._empNameSnapshot||a.before?.empId||'?',
+                  tur:  a.before?._empTurSnapshot ||_logSnap?._empTurSnapshot ||''};
+        const ea=employees.find(e=>e.id===a.after?.empId)||
+                 {name: a.after?._empNameSnapshot||_logSnap?._empNameSnapshot||a.after?.empId||'?',
+                  tur:  a.after?._empTurSnapshot ||_logSnap?._empTurSnapshot ||''};
+        rows.push(diffRow('Medarbejder', eb.name+(eb.tur?' ('+eb.tur+')':''), ea.name+(ea.tur?' ('+ea.tur+')':'')));
+        const cb=cm[a.before?.category]||{label:a.before?.category||'?'};
+        const ca=cm[a.after?.category]||{label:a.after?.category||'?'};
+        rows.push(diffRow('Kategori', cb.icon+' '+cb.label, ca.icon+' '+ca.label));
+        rows.push(diffRow('Kommentar', a.before?.comment, a.after?.comment));
+        const allFids=[...new Set([...Object.keys(a.before?.extra||{}),...Object.keys(a.after?.extra||{})])];
+        allFids.forEach(fid=>{
+          const bv=a.before?.extra?.[fid]; const av=a.after?.extra?.[fid];
+          const bStr=Array.isArray(bv)?bv.join(', '):(bv||'');
+          const aStr=Array.isArray(av)?av.join(', '):(av||'');
+          if(bStr!==aStr){
+            const fld=(cm[a.after?.category]?.fields||[]).find(f=>f.id===fid)||{label:fid};
+            rows.push(diffRow(fld.label, bStr, aStr));
+          }
+        });
+        const filled=rows.filter(Boolean);
+        if(filled.length) diffHtml=`<div class="audit-diff">${filled.join('')}</div>`;
+      }
     }
     if(a.action==='create'&&snap){
-      const extra=buildExtraText({extra:snap.extra||{}},cat);
-      diffHtml=`<div class="audit-diff">
-        <div style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Oprettet notering</div>
-        <div class="after">📅 ${fmtDate(snap.date)} &nbsp;·&nbsp; ${cat.icon} ${cat.label} &nbsp;·&nbsp; ${emp.name} (${emp.tur})</div>
-        ${extra?`<div class="after" style="margin-top:3px">${extra}</div>`:''}
-        ${snap.comment?`<div class="after" style="margin-top:3px;font-style:italic">"${snap.comment}"</div>`:''}
-      </div>`;
+      if(isVac){
+        diffHtml=`<div class="audit-diff">
+          <div style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Ferie-anmodning oprettet</div>
+          <div class="after">🏖️ ${snap.category||VAC_TYPE_LABELS[snap.type]||snap.type||'Ferie'} — ${emp.name} (${emp.tur})</div>
+          <div class="after" style="margin-top:3px">📅 ${fmtDate(snap.startDate)} – ${fmtDate(snap.endDate)}</div>
+        </div>`;
+      } else {
+        const extra=buildExtraText({extra:snap.extra||{}},cat);
+        diffHtml=`<div class="audit-diff">
+          <div style="font-size:0.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:4px">Oprettet notering</div>
+          <div class="after">📅 ${fmtDate(snap.date)} &nbsp;·&nbsp; ${cat.icon} ${cat.label} &nbsp;·&nbsp; ${emp.name} (${emp.tur})</div>
+          ${extra?`<div class="after" style="margin-top:3px">${extra}</div>`:''}
+          ${snap.comment?`<div class="after" style="margin-top:3px;font-style:italic">"${snap.comment}"</div>`:''}
+        </div>`;
+      }
     }
     if(a.action==='delete'&&snap){
       const extra=buildExtraText({extra:snap.extra||{}},cat);
@@ -1561,12 +2172,21 @@ function renderAuditLog(){
         ${snap.ansvarlig?`<div style="margin-top:4px;font-size:0.75rem;color:var(--text3)">Oprindeligt registreret af: <span class="audit-by">${snap.ansvarlig}</span></div>`:''}
       </div>`;
     }
+    const isMerge = a.logId?.startsWith('merge_') || a.snapshot?.action==='merge';
+    let headerInfo;
+    if(isMerge){
+      const s=a.snapshot||{};
+      headerInfo = `🔗 Flet — <strong>${s.fromEmp||'?'}</strong> → <strong>${s.toEmp||'?'}</strong>`;
+    } else {
+      headerInfo = `${cat.icon} ${cat.label} — <strong>${emp.name}</strong> (${emp.tur})`;
+    }
+
     return`<div class="audit-item audit-action-${a.action}">
       <div class="audit-meta">
         <span style="font-weight:700;color:var(--text)">${actionLabel[a.action]||a.action}</span>
         <span class="audit-by">${a.by||'?'}</span>
         <span>${ts}</span>
-        <span style="color:var(--text2)">${cat.icon} ${cat.label} — <strong>${emp.name}</strong> (${emp.tur})</span>
+        <span style="color:var(--text2)">${headerInfo}</span>
       </div>
       ${diffHtml}
     </div>`;
@@ -1578,11 +2198,15 @@ window.renderAuditLog = renderAuditLog;
 //  SELECTS
 // ═══════════════════════════════════════════════════
 function populateEmpSelects(){
+  const sorted=[...employees].sort((a,b)=>{
+    const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+    return na-nb || a.name.localeCompare(b.name);
+  });
   ['hist-emp','exp-emp'].forEach(id=>{
     const sel=document.getElementById(id); if(!sel) return;
     const cur=sel.value;
     sel.innerHTML='<option value="">Alle medarbejdere</option>'+
-      employees.map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
+      sorted.map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
     sel.value=cur;
   });
 }
@@ -1590,7 +2214,12 @@ function populateEmpSelects(){
 // ═══════════════════════════════════════════════════
 //  EXPORT
 // ═══════════════════════════════════════════════════
-window.showExportModal = function(){ populateEmpSelects(); openModal('export-modal'); };
+window.showExportModal = function(){
+  populateEmpSelects();
+  const fo = document.getElementById('exp-fuel-option');
+  if(fo) fo.style.display = (['Umar','Aaron'].includes(currentUser)) ? '' : 'none';
+  openModal('export-modal');
+};
 
 function getFilteredLogs(){
   const from=document.getElementById('exp-from').value, to=document.getElementById('exp-to').value;
@@ -1610,20 +2239,28 @@ window.exportExcel = function(){
   const incLogs =document.getElementById('exp-include-logs').checked;
   const incCards=document.getElementById('exp-include-cards').checked;
   const incInv  =document.getElementById('exp-include-invoices').checked;
+  const incFuel =document.getElementById('exp-include-fuel')?.checked||false;
+  const filtered = getFilteredLogs();
+
+  // ── 1. Samlet oversigt (alle noteringer) ──
   if(incLogs){
-    const d=getFilteredLogs().filter(l=>l.category!=='invoice').map(l=>{
+    const d=filtered.filter(l=>l.category!=='invoice').map(l=>{
       const e=employees.find(x=>x.id===l.empId)||{}, c=cm[l.category]||{};
-      return{'Dato':l.date,'Tur nr.':e.tur||'','Navn':e.name||'','Kategori':c.label||l.category,'Detaljer':buildExtraTextPlain(l,c),'Kommentar':l.comment||''};
+      return{'Dato':l.date,'Tur nr.':e.tur||'','Navn':e.name||'','Kategori':c.label||l.category,'Detaljer':buildExtraTextPlain(l,c),'Kommentar':l.comment||'','Ansvarlig':l.ansvarlig||''};
     });
-    if(d.length){const ws=XLSX.utils.json_to_sheet(d);ws['!cols']=[10,10,22,22,40,30].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,'Noteringer');}
+    if(d.length){const ws=XLSX.utils.json_to_sheet(d);ws['!cols']=[10,10,22,22,40,30,14].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,'Alle noteringer');}
   }
+
+  // ── 2. Regninger ──
   if(incInv){
-    const d=getFilteredLogs().filter(l=>l.category==='invoice').map(l=>{
+    const d=filtered.filter(l=>l.category==='invoice').map(l=>{
       const e=employees.find(x=>x.id===l.empId)||{};
       return{'Dato':l.date,'Tur nr.':e.tur||'','Navn':e.name||'','Type':l.extra?.inv_type||'','Afsender':l.extra?.inv_sender||'','Beløb (kr.)':l.extra?.inv_amount||'','Reference':l.extra?.inv_ref||''};
     });
     if(d.length){const ws=XLSX.utils.json_to_sheet(d);ws['!cols']=[10,10,22,14,22,14,20].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,'Regninger');}
   }
+
+  // ── 3. Kort & Brikker ──
   if(incCards){
     const c=empId?cards.filter(x=>x.empId===empId):cards;
     const tl={fuel:'Brændstofkort',charge:'Ladebrik',key:'Bilnøgle',evotec:'Evotec brik'};
@@ -1632,8 +2269,186 @@ window.exportExcel = function(){
     });
     if(d.length){const ws=XLSX.utils.json_to_sheet(d);ws['!cols']=[12,10,22,16,16,10,14].map(w=>({wch:w}));XLSX.utils.book_append_sheet(wb,ws,'Kort og Brikker');}
   }
+
+  // ── 4. Fane pr. medarbejder ──
+  if(incLogs || incInv){
+    // Find relevant employees
+    const relevantEmpIds = empId ? [empId] : [...new Set(filtered.map(l=>l.empId))];
+    const sortedEmps = relevantEmpIds
+      .map(id => employees.find(e=>e.id===id))
+      .filter(Boolean)
+      .sort((a,b) => {
+        const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+        return na-nb;
+      });
+
+    sortedEmps.forEach(emp => {
+      const empLogs = filtered.filter(l=>l.empId===emp.id);
+      if(!empLogs.length) return;
+
+      const d = empLogs.map(l => {
+        const c = cm[l.category]||{};
+        const row = {'Dato':l.date, 'Kategori':c.label||l.category, 'Detaljer':buildExtraTextPlain(l,c), 'Kommentar':l.comment||''};
+        if(l.category==='invoice'){
+          row['Type'] = l.extra?.inv_type||'';
+          row['Beløb'] = l.extra?.inv_amount||'';
+          row['Afsender'] = l.extra?.inv_sender||'';
+        }
+        return row;
+      });
+
+      // Sheet name max 31 chars, no special chars
+      let sheetName = `${emp.tur} ${emp.name}`.replace(/[\\\/\?\*\[\]:]/g,'').slice(0,31);
+      // Ensure unique sheet name
+      let suffix = 1;
+      let origName = sheetName;
+      while(wb.SheetNames.includes(sheetName)){
+        sheetName = origName.slice(0, 28) + ` (${suffix++})`;
+      }
+
+      const ws = XLSX.utils.json_to_sheet(d);
+      ws['!cols'] = [10,22,40,30,14,14,22].map(w=>({wch:w}));
+
+      // Add header row with employee info
+      XLSX.utils.sheet_add_aoa(ws, [
+        [`${emp.name} — Tur ${emp.tur}`, '', `Noteringer: ${empLogs.length}`, '', `Periode: ${document.getElementById('exp-from').value} → ${document.getElementById('exp-to').value}`]
+      ], {origin:'A1'});
+      // Shift data down by adding the header
+      const newWs = XLSX.utils.json_to_sheet(d, {origin:'A3'});
+      // Re-add header
+      XLSX.utils.sheet_add_aoa(newWs, [
+        [`${emp.name} — Tur ${emp.tur}`, '', `${empLogs.length} noteringer`]
+      ], {origin:'A1'});
+      newWs['!cols'] = [10,22,40,30,14,14,22].map(w=>({wch:w}));
+
+      XLSX.utils.book_append_sheet(wb, newWs, sheetName);
+    });
+  }
+
+  // ── 5. Ferier & Fridage ──
+  {
+    const from = document.getElementById('exp-from').value;
+    const to = document.getElementById('exp-to').value;
+    const empFilter = document.getElementById('exp-emp').value;
+    const vacInPeriod = (vacRequests||[]).filter(r => {
+      if(r.status!=='approved') return false;
+      if(from && r.endDate < from) return false;
+      if(to && r.startDate > to) return false;
+      if(empFilter && r.empId !== empFilter) return false;
+      return true;
+    });
+    if(vacInPeriod.length){
+      const d = vacInPeriod.map(r => {
+        const emp = employees.find(e=>e.id===r.empId)||{name:'?',tur:'-'};
+        const days = Math.round((new Date(r.endDate)-new Date(r.startDate))/864e5)+1;
+        return {
+          'Tur nr.': emp.tur,
+          'Navn': emp.name,
+          'Type': VAC_TYPE_LABELS[r.type]||r.type,
+          'Fra dato': r.startDate,
+          'Til dato': r.endDate,
+          'Antal dage': days,
+          'Status': r.status==='approved'?'Godkendt':r.status==='pending'?'Afventer':'Afslået',
+          'Note': r.note||'',
+          'Registreret af': r.registeredBy||''
+        };
+      });
+      const ws = XLSX.utils.json_to_sheet(d);
+      ws['!cols'] = [10,22,16,12,12,10,10,20,14].map(w=>({wch:w}));
+      XLSX.utils.book_append_sheet(wb, ws, 'Ferier og Fridage');
+    }
+  }
+
+  // ── 6. Brændstof faner (Umar + Aaron) — diesel og el adskilt ──
+  if(incFuel && _fuelReports && _fuelReports.length){
+    const dieselReports = _fuelReports.filter(r=>r.dataMode!=='charging');
+    const chargeReports = _fuelReports.filter(r=>r.dataMode==='charging');
+
+    // ── 6a. Diesel transaktioner ──
+    if(dieselReports.length){
+      const rows = [];
+      dieselReports.forEach(r => {
+        (r.cards||[]).forEach(c => {
+          const emp = c.empId ? employees.find(e=>e.id===c.empId) : null;
+          rows.push({
+            'Rapport dato': r.date||(r.createdAt||'').split('T')[0]||'',
+            'Kort nr.': c.kortNr||'',
+            'Medarbejder': emp?.name||'Ikke tildelt',
+            'Tur nr.': emp?.tur||'',
+            'Netto (DKK)': c.netto||0,
+            'Rabat (DKK)': c.rabat||0,
+            'Moms (DKK)': c.moms||0,
+            'Brutto (DKK)': c.brutto||0
+          });
+        });
+      });
+      const ws = XLSX.utils.json_to_sheet(rows);
+      ws['!cols'] = [12,12,22,10,14,14,14,14].map(w=>({wch:w}));
+      XLSX.utils.book_append_sheet(wb, ws, '⛽ Diesel');
+    }
+
+    // ── 6b. El transaktioner ──
+    if(chargeReports.length){
+      const rows = [];
+      chargeReports.forEach(r => {
+        (r.cards||[]).forEach(c => {
+          const emp = c.empId ? employees.find(e=>e.id===c.empId) : null;
+          rows.push({
+            'Rapport dato': r.date||(r.createdAt||'').split('T')[0]||'',
+            'Kort / Brik': c.kortNr||'',
+            'Medarbejder': emp?.name||'Ikke tildelt',
+            'Tur nr.': emp?.tur||'',
+            'Netto (DKK)': Math.abs(c.netto||0),
+            'Moms (DKK)': Math.abs(c.moms||0),
+            'Brutto (DKK)': Math.abs(c.brutto||0),
+            'kWh': c.kwh||0,
+            'Antal': c.antal||0
+          });
+        });
+      });
+      const ws = XLSX.utils.json_to_sheet(rows);
+      ws['!cols'] = [12,16,22,10,14,14,14,10,8].map(w=>({wch:w}));
+      XLSX.utils.book_append_sheet(wb, ws, '🔋 El ladning');
+    }
+
+    // ── 6c. Forbrug pr. medarbejder (samlet oversigt) ──
+    const empFuel = {};
+    _fuelReports.forEach(r => {
+      const isCharge = r.dataMode==='charging';
+      (r.cards||[]).forEach(c => {
+        if(!c.empId) return;
+        if(!empFuel[c.empId]) empFuel[c.empId] = {dieselNetto:0,dieselRabat:0,chargeNetto:0,chargeKwh:0};
+        if(isCharge){
+          empFuel[c.empId].chargeNetto += Math.abs(c.netto||0);
+          empFuel[c.empId].chargeKwh += c.kwh||0;
+        } else {
+          empFuel[c.empId].dieselNetto += c.netto||0;
+          empFuel[c.empId].dieselRabat += c.rabat||0;
+        }
+      });
+    });
+
+    const empRows = Object.entries(empFuel)
+      .sort((a,b)=>(b[1].dieselNetto+b[1].chargeNetto)-(a[1].dieselNetto+a[1].chargeNetto))
+      .map(([id, d]) => {
+        const emp = employees.find(e=>e.id===id) || {name:'Ukendt',tur:'-'};
+        return {
+          'Tur nr.':emp.tur, 'Navn':emp.name,
+          '⛽ Diesel netto':d.dieselNetto, '⛽ Diesel rabat':d.dieselRabat,
+          '🔋 El netto':d.chargeNetto, '🔋 El kWh':d.chargeKwh,
+          'Total netto':d.dieselNetto+d.chargeNetto
+        };
+      });
+
+    if(empRows.length){
+      const ws = XLSX.utils.json_to_sheet(empRows);
+      ws['!cols'] = [10,22,14,14,14,12,14].map(w=>({wch:w}));
+      XLSX.utils.book_append_sheet(wb, ws, 'Forbrug pr. medarb.');
+    }
+  }
+
   if(!wb.SheetNames.length){toast('⚠️ Ingen data at eksportere');return;}
-  XLSX.writeFile(wb,`LinesNote_export_${todayStr()}.xlsx`);
+  XLSX.writeFile(wb,`LinesNote_${todayStr()}.xlsx`);
   toast('📊 Excel hentet!'); closeModal('export-modal');
 };
 
@@ -1657,34 +2472,17 @@ window.exportPDF = function(){
   <h1>Lines.Note — Udtræk</h1><div class="meta">Periode: ${from} → ${to} | ${empName} | ${filtered.length} noteringer</div>
   <h2>📋 Noteringer</h2><table><thead><tr><th>Dato</th><th>Tur</th><th>Navn</th><th>Kategori</th><th>Detaljer</th><th>Kommentar</th></tr></thead><tbody>${rows}</tbody></table>
   ${invRows?`<h2>💸 Regninger</h2><table><thead><tr><th>Dato</th><th>Tur</th><th>Navn</th><th>Type</th><th>Afsender</th><th>Beløb</th><th>Reference</th></tr></thead><tbody>${invRows}</tbody></table>`:''}
-  <script>window.print();window.onafterprint=()=>window.close();<\/script>
-<div id="install-guide-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:flex-end;justify-content:center">
-  <div style="background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:24px 20px 40px">
-    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
-      <strong style="font-size:1.1rem">📲 Installer Lines.Note</strong>
-      <button onclick="document.getElementById('install-guide-overlay').style.display='none'"  style="background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;padding:4px 8px">✕</button>
-    </div>
-
-    <p style="font-weight:700;font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">Android (Samsung / Chrome)</p>
-    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
-      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><span>Tryk på <strong>⋮ menu</strong> øverst til højre i browseren</span></div>
-      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><span>Vælg <strong>"Tilføj til startskærm"</strong></span></div>
-      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><span>Tryk <strong>Tilføj</strong></span></div>
-    </div>
-
-    <p style="font-weight:700;font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">iPhone / iPad (Safari)</p>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><span>Tryk på <strong>⬆️ Del</strong>-ikonet i Safari</span></div>
-      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><span>Vælg <strong>"Føj til hjemmeskærm"</strong></span></div>
-      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><span>Tryk <strong>Tilføj</strong></span></div>
-    </div>
-  </div>
-</div>
-
-
-
-
-</body></html>`);
+  ${(()=>{
+    const vacs=(vacRequests||[]).filter(r=>r.status==='approved'&&!(from&&r.endDate<from)&&!(to&&r.startDate>to));
+    const empF=document.getElementById('exp-emp').value;
+    const fv=empF?vacs.filter(r=>r.empId===empF):vacs;
+    if(!fv.length) return '';
+    const vacRows=fv.map(r=>{const e=employees.find(x=>x.id===r.empId)||{};const days=Math.round((new Date(r.endDate)-new Date(r.startDate))/864e5)+1;
+      return '<tr><td>'+(e.tur||'')+'</td><td>'+(e.name||'')+'</td><td>'+({ferie:'Ferie',fridag:'Fridag',feriefridag:'Feriefridag',afspadsering:'Afspadsering',barns_sygedag:'Barns sygedag',orlov:'Orlov'}[r.type]||r.type)+'</td><td>'+r.startDate+'</td><td>'+r.endDate+'</td><td>'+days+'</td><td>'+(r.note||'')+'</td></tr>';
+    }).join('');
+    return '<h2>🏖️ Ferier og Fridage</h2><table><thead><tr><th>Tur</th><th>Navn</th><th>Type</th><th>Fra</th><th>Til</th><th>Dage</th><th>Note</th></tr></thead><tbody>'+vacRows+'</tbody></table>';
+  })()}
+  <script>window.print();window.onafterprint=()=>window.close();<\/script></body></html>`);
   w.document.close(); closeModal('export-modal');
 };
 
@@ -1740,11 +2538,1297 @@ function fmtDate(d){ if(!d)return''; const[y,m,day]=d.split('-'); return`${day}/
 
 
 // ═══════════════════════════════════════════════════
+//  FLET MEDARBEJDERE (Umar + Aaron)
+// ═══════════════════════════════════════════════════
+let _mergeSecondaryIds = new Set();
+
+window.openMergeModal = function(){
+  const sorted = [...employees].sort((a,b)=>{
+    const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+    return na-nb || a.name.localeCompare(b.name);
+  });
+
+  document.getElementById('merge-primary').innerHTML =
+    '<option value="">Vælg primær medarbejder...</option>' +
+    sorted.map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
+
+  _mergeSecondaryIds = new Set();
+  renderMergeSecondary();
+  document.getElementById('merge-preview').innerHTML = '';
+  document.getElementById('merge-primary').onchange = () => renderMergeSecondary();
+  openModal('merge-emp-modal');
+};
+
+function renderMergeSecondary(){
+  const primaryId = document.getElementById('merge-primary').value;
+  const el = document.getElementById('merge-secondary-list'); if(!el) return;
+  const sorted = [...employees].sort((a,b)=>{
+    const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+    return na-nb || a.name.localeCompare(b.name);
+  }).filter(e=>e.id!==primaryId);
+
+  el.innerHTML = sorted.map(e=>{
+    const checked = _mergeSecondaryIds.has(e.id);
+    const logCount = logs.filter(l=>l.empId===e.id).length;
+    const cardCount = cards.filter(c=>c.empId===e.id).length;
+    return `<label style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);cursor:pointer;font-size:0.85rem">
+      <input type="checkbox" ${checked?'checked':''} onchange="toggleMergeSecondary('${e.id}',this.checked)" style="width:18px;height:18px;accent-color:var(--accent)" />
+      <span style="font-family:var(--mono);font-size:0.78rem;color:var(--accent2);min-width:40px">${e.tur}</span>
+      <span style="flex:1">${e.name}</span>
+      <span style="font-size:0.7rem;color:var(--text3)">${logCount} not. · ${cardCount} kort</span>
+    </label>`;
+  }).join('');
+
+  updateMergePreview();
+}
+
+window.toggleMergeSecondary = function(id, checked){
+  if(checked) _mergeSecondaryIds.add(id);
+  else _mergeSecondaryIds.delete(id);
+  updateMergePreview();
+};
+
+function updateMergePreview(){
+  const el = document.getElementById('merge-preview');
+  const primaryId = document.getElementById('merge-primary').value;
+  if(!primaryId || !_mergeSecondaryIds.size){ el.innerHTML=''; return; }
+
+  const primary = employees.find(e=>e.id===primaryId);
+  let totalLogs=0, totalCards=0, totalVac=0;
+  _mergeSecondaryIds.forEach(id=>{
+    totalLogs += logs.filter(l=>l.empId===id).length;
+    totalCards += cards.filter(c=>c.empId===id).length;
+    totalVac += (vacRequests||[]).filter(r=>r.empId===id).length;
+  });
+
+  el.innerHTML = `<div style="padding:10px 14px;background:rgba(234,179,8,0.08);border:1px solid rgba(234,179,8,0.2);border-radius:8px;margin-top:10px">
+    <strong style="color:var(--yellow)">⚠️ Forhåndsvisning:</strong><br>
+    <span style="font-size:0.8rem">${_mergeSecondaryIds.size} medarbejder${_mergeSecondaryIds.size>1?'e':''} flettes ind i <strong>${primary?.name||'?'} (${primary?.tur})</strong><br>
+    ${totalLogs} noteringer + ${totalCards} kort + ${totalVac} ferier flyttes<br>
+    De valgte medarbejdere slettes permanent.</span>
+  </div>`;
+}
+
+window.executeMerge = async function(){
+  const primaryId = document.getElementById('merge-primary').value;
+  if(!primaryId){ toast('⚠️ Vælg primær medarbejder'); return; }
+  if(!_mergeSecondaryIds.size){ toast('⚠️ Vælg mindst én medarbejder at flette'); return; }
+
+  const primary = employees.find(e=>e.id===primaryId);
+  const count = _mergeSecondaryIds.size;
+  if(!confirm(`Flet ${count} medarbejder${count>1?'e':''} ind i ${primary?.name} (${primary?.tur})?\n\nAlle noteringer, kort og ferier flyttes.\nDe valgte medarbejdere slettes permanent.\n\nDenne handling kan IKKE fortrydes.`)) return;
+
+  const btn = document.getElementById('merge-confirm-btn');
+  btn.disabled=true; btn.textContent='Fletter...';
+
+  try{
+    setSyncing();
+
+    for(const secId of _mergeSecondaryIds){
+      const secEmp = employees.find(e=>e.id===secId)||{name:'?',tur:'-'};
+
+      // Move all logs
+      const empLogs = logs.filter(l=>l.empId===secId);
+      for(let i=0;i<empLogs.length;i+=400){
+        const b=_newBatch();
+        empLogs.slice(i,i+400).forEach(l=>_batchUpdate(b,'lines_logs',l.id,{empId:primaryId}));
+        await b.commit();
+      }
+
+      // Move all cards
+      const empCards = cards.filter(c=>c.empId===secId);
+      if(empCards.length){
+        const b=_newBatch();
+        empCards.forEach(c=>_batchUpdate(b,'lines_cards',c.id,{empId:primaryId}));
+        await b.commit();
+      }
+
+      // Move all vacation requests
+      const empVacs = (vacRequests||[]).filter(r=>r.empId===secId);
+      if(empVacs.length){
+        const b=_newBatch();
+        empVacs.forEach(r=>_batchUpdate(b,'lines_vacRequests',r.id,{empId:primaryId}));
+        await b.commit();
+      }
+
+      // Delete the secondary employee
+      await _delete('lines_employees', secId);
+
+      // Audit log
+      await _add('lines_auditLogs',{
+        action:'edit',
+        logId:'merge_'+secId,
+        snapshot:{action:'merge', fromEmp:secEmp.name, fromTur:secEmp.tur, toEmp:primary?.name, toTur:primary?.tur,
+          movedLogs:empLogs.length, movedCards:empCards.length, movedVacs:empVacs.length},
+        by:currentUser,
+        timestamp:new Date().toISOString()
+      });
+    }
+
+    setSynced();
+    closeModal('merge-emp-modal');
+    toast(`✅ ${count} medarbejder${count>1?'e':''} flettet ind i ${primary?.name}`);
+  }catch(e){ toast('❌ '+e.message); setSynced(); }
+
+  btn.disabled=false; btn.textContent='🔗 Flet nu';
+};
+
+// ═══════════════════════════════════════════════════
+//  FERIER & FRIDAGE
+// ═══════════════════════════════════════════════════
+const VAC_COLORS = ['#3B82F6','#10B981','#F59E0B','#EF4444','#A78BFA','#EC4899','#06B6D4','#F97316','#84CC16','#6366F1','#14B8A6','#E11D48','#8B5CF6','#0891B2','#CA8A04','#DC2626','#7C3AED','#059669','#D946EF','#EA580C','#2563EB','#16A34A','#DB2777','#4F46E5','#0D9488','#B91C1C','#9333EA','#C026D3','#65A30D','#0284C7'];
+const VAC_TYPE_LABELS = {ferie:'🌴 Ferie',fridag:'🏖 Fridag',feriefridag:'📅 Feriefridag',afspadsering:'⏰ Afspadsering',barns_sygedag:'👶 Barns sygedag',orlov:'📋 Orlov'};
+
+let vacRequests = [];
+let _vacMonth = new Date().getMonth();
+let _vacYear = new Date().getFullYear();
+let _vacView = 'calendar';
+let _vacFilter = 'all';
+
+// ── Firestore listener ──
+function startVacListener(){
+  _snap('lines_vacRequests', [orderBy('createdAt','desc')], snap => {
+    const prev = vacRequests.filter(r=>r.status==='pending').length;
+    vacRequests = snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderVacation();
+    updateVacPendingDot();
+    // Notify on new pending
+    const now = vacRequests.filter(r=>r.status==='pending').length;
+    if(now > prev && prev >= 0) vacNotify('📋 Ny ferieanmodning', `${now} anmodning${now>1?'er':''} afventer godkendelse`);
+  }, err => console.error('vacRequests:', err));
+}
+
+function getVacEmpColor(empId){
+  const idx = employees.findIndex(e=>e.id===empId);
+  return idx>=0 ? VAC_COLORS[idx % VAC_COLORS.length] : '#666';
+}
+
+// ── Views ──
+window.setVacView = function(view, btn){
+  _vacView = view;
+  document.querySelectorAll('.vac-subtab').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('vac-calendar-view').style.display = view==='calendar'?'block':'none';
+  document.getElementById('vac-pending-view').style.display = view==='pending'?'block':'none';
+  document.getElementById('vac-all-view').style.display = view==='all'?'block':'none';
+  renderVacation();
+};
+
+window.setVacFilter = function(f, btn){
+  _vacFilter = f;
+  document.querySelectorAll('#vac-all-view .filter-chip').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderVacAllList();
+};
+
+// ── Calendar ──
+window.vacChangeMonth = function(dir){
+  _vacMonth += dir;
+  if(_vacMonth<0){_vacMonth=11;_vacYear--}
+  if(_vacMonth>11){_vacMonth=0;_vacYear++}
+  renderVacCalendar();
+};
+
+function renderVacation(){
+  renderVacCalendar();
+  renderVacPendingList();
+  renderVacAllList();
+  renderVacMonthList();
+}
+
+function renderVacCalendar(){
+  const approved = vacRequests.filter(r=>r.status==='approved');
+  const pending = vacRequests.filter(r=>r.status==='pending');
+  const months = ['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December'];
+  const titleEl = document.getElementById('vac-cal-title');
+  if(titleEl) titleEl.textContent = months[_vacMonth]+' '+_vacYear;
+
+  const grid = document.getElementById('vac-cal-grid'); if(!grid) return;
+  grid.innerHTML = '';
+
+  // Day names
+  ['Ma','Ti','On','To','Fr','Lø','Sø'].forEach(d=>{
+    const el = document.createElement('div'); el.className='vac-day-name'; el.textContent=d; grid.appendChild(el);
+  });
+
+  const first = new Date(_vacYear, _vacMonth, 1);
+  let startDay = first.getDay()-1; if(startDay<0) startDay=6;
+  const daysInMonth = new Date(_vacYear, _vacMonth+1, 0).getDate();
+  const today = todayStr();
+
+  for(let i=0;i<startDay;i++){
+    const el=document.createElement('div'); el.className='vac-day empty'; grid.appendChild(el);
+  }
+
+  for(let d=1;d<=daysInMonth;d++){
+    const dateStr = `${_vacYear}-${String(_vacMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const el = document.createElement('div');
+    el.className = 'vac-day'+(dateStr===today?' today':'');
+
+    const numEl = document.createElement('div'); numEl.className='vd-num'; numEl.textContent=d;
+    el.appendChild(numEl);
+
+    // Find who is on vacation this day
+    const dotsEl = document.createElement('div'); dotsEl.className='vd-dots';
+    const allReqs = [...approved,...pending];
+    allReqs.filter(r=>r.startDate<=dateStr && r.endDate>=dateStr).forEach(r=>{
+      const dot = document.createElement('div');
+      dot.className = 'vac-dot';
+      dot.style.background = getVacEmpColor(r.empId);
+      if(r.status==='pending') dot.style.opacity='0.4';
+      dotsEl.appendChild(dot);
+    });
+    el.appendChild(dotsEl);
+    grid.appendChild(el);
+  }
+
+  // Legend
+  const legendEl = document.getElementById('vac-legend'); if(!legendEl) return;
+  const activeEmpIds = [...new Set([...approved,...pending].map(r=>r.empId))];
+  legendEl.innerHTML = activeEmpIds.map(id=>{
+    const emp = employees.find(e=>e.id===id);
+    if(!emp) return '';
+    return `<div class="vac-legend-item"><div class="vac-legend-dot" style="background:${getVacEmpColor(id)}"></div>${emp.name.split(' ')[0]}</div>`;
+  }).join('');
+}
+
+function renderVacMonthList(){
+  const el = document.getElementById('vac-month-list'); if(!el) return;
+  const monthStart = `${_vacYear}-${String(_vacMonth+1).padStart(2,'0')}-01`;
+  const monthEnd = `${_vacYear}-${String(_vacMonth+1).padStart(2,'0')}-${new Date(_vacYear,_vacMonth+1,0).getDate()}`;
+  const inMonth = vacRequests.filter(r=>r.status==='approved'&&r.startDate<=monthEnd&&r.endDate>=monthStart);
+  if(!inMonth.length){el.innerHTML='';return;}
+
+  el.innerHTML = '<div class="section-title" style="margin-top:4px">📋 Ferier denne måned</div>'+
+    inMonth.map(r=>{
+      const emp=employees.find(e=>e.id===r.empId)||{name:'?',tur:'-'};
+      const days=Math.round((new Date(r.endDate)-new Date(r.startDate))/864e5)+1;
+      return `<div style="display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface);border:1px solid var(--border);border-left:3px solid ${getVacEmpColor(r.empId)};border-radius:8px;margin-bottom:6px">
+        <div style="flex:1"><span style="font-weight:600;font-size:0.88rem">${emp.name}</span> <span style="font-size:0.75rem;color:var(--text3)">(${emp.tur})</span></div>
+        <span style="font-size:0.72rem;color:var(--text3);font-family:var(--mono)">${fmtDate(r.startDate)} – ${fmtDate(r.endDate)}</span>
+        <span style="font-size:0.7rem;background:var(--surface2);padding:2px 8px;border-radius:20px;color:var(--text3)">${days}d</span>
+      </div>`;
+    }).join('');
+}
+
+// ── Pending list ──
+function renderVacPendingList(){
+  const el = document.getElementById('vac-pending-list'); if(!el) return;
+  const pending = vacRequests.filter(r=>r.status==='pending');
+  if(!pending.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">✅</div><div style="font-size:0.9rem">Ingen anmodninger afventer</div></div>';
+    return;
+  }
+  el.innerHTML = pending.map(r=>renderVacReqCard(r,true)).join('');
+}
+
+// ── All requests list ──
+function renderVacAllList(){
+  const el = document.getElementById('vac-all-list'); if(!el) return;
+  let filtered = vacRequests;
+  if(_vacFilter!=='all') filtered=vacRequests.filter(r=>r.status===_vacFilter);
+  if(!filtered.length){
+    el.innerHTML='<div class="empty"><div class="empty-icon">📋</div><div style="font-size:0.9rem">Ingen anmodninger</div></div>';
+    return;
+  }
+  el.innerHTML = filtered.map(r=>renderVacReqCard(r,false)).join('');
+}
+
+function renderVacReqCard(r, showActions){
+  const emp=employees.find(e=>e.id===r.empId)||{name:'?',tur:'-'};
+  const ini=emp.name.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const days=Math.round((new Date(r.endDate)-new Date(r.startDate))/864e5)+1;
+  const statusLabel = {pending:'Afventer',approved:'Godkendt',rejected:'Afslået'}[r.status]||r.status;
+
+  return `<div class="vac-req-card">
+    <div class="vac-req-header">
+      <div class="emp-avatar" style="width:36px;height:36px;background:${getVacEmpColor(r.empId)};font-size:0.7rem">${ini}</div>
+      <div class="vac-req-info">
+        <div class="vac-req-name">${emp.name} <span style="color:var(--text3);font-size:0.78rem">(${emp.tur})</span></div>
+        <div class="vac-req-dates">${fmtDate(r.startDate)} – ${fmtDate(r.endDate)} · ${days} dag${days>1?'e':''}</div>
+      </div>
+      <div>
+        <span class="vac-status ${r.status}">${statusLabel}</span>
+        <div style="font-size:0.68rem;color:var(--text3);margin-top:3px">${VAC_TYPE_LABELS[r.type]||r.type}</div>
+      </div>
+    </div>
+    ${r.note?`<div style="padding:0 14px 10px;font-size:0.82rem;color:var(--text3);font-style:italic">"${r.note}"</div>`:''}
+    ${r.registeredBy?`<div style="padding:0 14px 8px;font-size:0.7rem;color:var(--text3)">Registreret af: ${r.registeredBy}</div>`:''}
+    ${showActions && r.status==='pending'?`<div class="vac-req-actions">
+      <button class="vac-reject" onclick="vacDecide('${r.id}','rejected')">❌ Afslå</button>
+      <button class="vac-approve" onclick="vacDecide('${r.id}','approved')">✅ Godkend</button>
+    </div>`:''}
+    ${!showActions && r.status!=='pending'?`<div style="padding:0 14px 10px;display:flex;gap:6px">
+      <button class="btn btn-danger btn-sm" onclick="deleteVacRequest('${r.id}')">🗑️ Slet</button>
+    </div>`:''}
+  </div>`;
+}
+
+// ── Approve/Reject ──
+window.vacDecide = async function(id, status){
+  const r = vacRequests.find(x=>x.id===id); if(!r) return;
+  const emp = employees.find(e=>e.id===r.empId)||{name:'?',tur:'-'};
+  const label = status==='approved'?'godkendt':'afslået';
+  try{
+    setSyncing();
+    await _update('lines_vacRequests', id, {status, decidedBy:currentUser, decidedAt:new Date().toISOString()});
+    await _add('lines_auditLogs',{
+      action:'edit', logId:'vac_'+id,
+      isVacation:true,
+      before:{status:'pending'},
+      after:{status},
+      snapshot:{empId:r.empId, empName:emp.name, empTur:emp.tur, type:r.type, startDate:r.startDate, endDate:r.endDate, category:'🏖️ '+(VAC_TYPE_LABELS[r.type]||r.type)},
+      by:currentUser,
+      timestamp:new Date().toISOString()
+    });
+    setSynced();
+    toast(`${status==='approved'?'✅':'❌'} ${emp.name}: Ferie ${label}`);
+    vacNotify(`${status==='approved'?'✅':'❌'} Ferie ${label}`, `${emp.name}'s ${VAC_TYPE_LABELS[r.type]||'ferie'} er ${label}`);
+    if(status==='approved') scheduleVacReminders(r, emp.name);
+  }catch(e){toast('❌ '+e.message)}
+};
+
+// ── Save new request ──
+window.saveVacRequest = async function(){
+  const empId = document.getElementById('vac-req-emp').value;
+  const type = document.getElementById('vac-req-type').value;
+  const start = document.getElementById('vac-req-start').value;
+  const end = document.getElementById('vac-req-end').value;
+  const note = document.getElementById('vac-req-note').value;
+
+  if(!empId){toast('⚠️ Vælg medarbejder');return;}
+  if(!start||!end){toast('⚠️ Vælg datoer');return;}
+  if(start>end){toast('⚠️ Fra-dato skal være før til-dato');return;}
+  if(!currentUser){toast('⚠️ Vælg hvem du er');return;}
+
+  const emp = employees.find(e=>e.id===empId)||{name:'?',tur:'-'};
+  const btn=document.getElementById('vac-save-btn');
+  btn.disabled=true; btn.textContent='Gemmer...';
+  try{
+    setSyncing();
+    const ref = await _add('lines_vacRequests',{empId,type,startDate:start,endDate:end,note,status:'pending',registeredBy:currentUser,createdAt:new Date().toISOString()});
+    await _add('lines_auditLogs',{
+      action:'create', logId:'vac_'+ref.id,
+      isVacation:true,
+      snapshot:{empId, empName:emp.name, empTur:emp.tur, type, startDate:start, endDate:end, category:'🏖️ '+(VAC_TYPE_LABELS[type]||type)},
+      by:currentUser,
+      timestamp:new Date().toISOString()
+    });
+    setSynced();
+    closeModal('vac-req-modal');
+    toast('✅ Anmodning sendt!');
+    vacNotify('📋 Ny ferieanmodning',`${emp.name} har anmodet om ${VAC_TYPE_LABELS[type]||type}`);
+  }catch(e){toast('❌ '+e.message)}
+  btn.disabled=false; btn.textContent='Send anmodning';
+};
+
+window.deleteVacRequest = async function(id){
+  if(!confirm('Slet denne ferie-anmodning?')) return;
+  try{setSyncing();await _delete('lines_vacRequests',id);setSynced();toast('🗑️ Slettet');}
+  catch(e){toast('❌ '+e.message)}
+};
+
+// ── Pending dot ──
+function updateVacPendingDot(){
+  const count = vacRequests.filter(r=>r.status==='pending').length;
+  const dot = document.getElementById('vac-pending-dot');
+  if(dot) dot.innerHTML = count>0?`<span class="vac-pending-dot"></span>`:'';
+}
+
+// ── Browser notifications ──
+function vacRequestNotifPermission(){
+  if('Notification' in window && Notification.permission==='default'){
+    Notification.requestPermission();
+  }
+}
+
+function vacNotify(title, body){
+  if('Notification' in window && Notification.permission==='granted'){
+    try{ new Notification(title, {body, icon:'🏖️'}); }catch(e){}
+  }
+}
+
+function scheduleVacReminders(r, empName){
+  const startMs = new Date(r.startDate).getTime();
+  const endMs = new Date(r.endDate).getTime()+864e5;
+  const now = Date.now();
+  const day = 864e5;
+
+  // Day before start
+  if(startMs-day>now) setTimeout(()=>vacNotify('🌴 Ferie starter i morgen',`${empName}'s ferie starter i morgen`), startMs-day-now);
+  // On start
+  if(startMs>now) setTimeout(()=>vacNotify('✈️ Ferie starter i dag',`${empName}'s ferie er startet`), startMs-now);
+  // On end
+  if(endMs>now) setTimeout(()=>vacNotify('👋 Ferie slutter i dag',`${empName} er tilbage i morgen`), endMs-now);
+}
+
+// ── Init vacation ──
+function initVacation(){
+  vacRequestNotifPermission();
+  startVacListener();
+  // Populate emp select in modal
+  const sel=document.getElementById('vac-req-emp');
+  if(sel){
+    const sorted=[...employees].sort((a,b)=>{const na=parseInt(a.tur.replace(/\D/g,''))||0,nb=parseInt(b.tur.replace(/\D/g,''))||0;return na-nb;});
+    sel.innerHTML=sorted.map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
+  }
+  const byEl=document.getElementById('vac-req-by');
+  if(byEl) byEl.textContent=currentUser||'—';
+  const sd=document.getElementById('vac-req-start');
+  const ed=document.getElementById('vac-req-end');
+  if(sd) sd.value=todayStr();
+  if(ed) ed.value=todayStr();
+  // Schedule reminders for existing approved vacations
+  vacRequests.filter(r=>r.status==='approved').forEach(r=>{
+    const emp=employees.find(e=>e.id===r.empId);
+    if(emp) scheduleVacReminders(r, emp.name);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+//  BRÆNDSTOF RAPPORT (Umar + Aaron + PIN)
+// ═══════════════════════════════════════════════════
+const FUEL_PIN = '1234'; // ← Skift denne PIN
+let _fuelUnlocked = false;
+let _fuelParsedData = [];
+let _fuelCardMatches = {}; // kortNr -> empId
+let _fuelReports = [];
+let _fuelStatView = 'company';
+
+// Show/hide fuel tab based on user
+function updateFuelTabVisibility(){
+  const btn = document.getElementById('fuel-nav-btn');
+  if(btn) btn.style.display = (['Umar','Aaron'].includes(currentUser)) ? '' : 'none';
+}
+
+window.checkFuelPin = function(){
+  const pin = document.getElementById('fuel-pin-input').value;
+  if(pin === FUEL_PIN){
+    _fuelUnlocked = true;
+    document.getElementById('fuel-pin-gate').style.display = 'none';
+    document.getElementById('fuel-content').style.display = 'block';
+    initFuel();
+  } else {
+    const err = document.getElementById('fuel-pin-error');
+    err.textContent = 'Forkert PIN-kode'; err.style.display = 'block';
+    document.getElementById('fuel-pin-input').value = '';
+    document.getElementById('fuel-pin-input').focus();
+  }
+};
+
+window.lockFuel = function(){
+  _fuelUnlocked = false;
+  document.getElementById('fuel-pin-gate').style.display = 'block';
+  document.getElementById('fuel-content').style.display = 'none';
+  document.getElementById('fuel-pin-input').value = '';
+  document.getElementById('fuel-pin-error').style.display = 'none';
+};
+
+function initFuel(){
+  const fi = document.getElementById('fuel-file-input');
+  if(fi) fi.onchange = e => handleFuelFile(e.target.files?.[0]);
+  loadFuelReports();
+  renderFuelStats();
+}
+
+let _fuelDataMode = null; // 'shell', 'euroshell', 'charging'
+
+// ── Multi-format file handler ──
+async function handleFuelFile(file){
+  if(!file){ return; }
+  hideFuelError();
+  const ext = file.name.split('.').pop().toLowerCase();
+  if(ext==='pdf') await handleFuelPDF(file);
+  else if(['xlsx','xls','csv'].includes(ext)) await handleFuelXLSX(file);
+  else showFuelError('Filtypen understøttes ikke. Brug PDF, XLSX eller CSV.');
+}
+
+// ── PDF Parsing ──
+async function handleFuelPDF(file){
+  const status = document.getElementById('fuel-parse-status');
+  status.style.display = 'flex';
+
+  try {
+    if(!window.pdfjsLib){
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+      document.head.appendChild(s);
+      await new Promise((res,rej) => { s.onload=res; s.onerror=rej; });
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+
+    const ab = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({data:ab}).promise;
+    let allText = '';
+    const pageTexts = [];
+    for(let i=1; i<=pdf.numPages; i++){
+      const page = await pdf.getPage(i);
+      const tc = await page.getTextContent();
+      const items = tc.items.map(it=>it.str);
+      pageTexts.push(items);
+      allText += items.join(' ') + '\n';
+    }
+
+    // Format 1: Shell tankfaktura — "Kort: '700... XXXX-YYYY"
+    if(allText.includes('Kort:') && /Kort:\s*'?\d+\s+\d{4}-\d{4}/.test(allText)){
+      parseFuelShellTank(pageTexts);
+    }
+    // Format 2: euroShell full — "700210120XXXXXXXXX YYYY A ZZZZ A"
+    else if(/700210120\d+\s+\d{4}\s+[AB]\s+\d{4}\s+[AB]/.test(allText)){
+      parseFuelEuroShell(allText);
+    }
+    // Format 3: euroShell masked — "7002101******XXXXXX YYYY-ZZZZ"
+    else if(/7002101\*{2,}\d+\s+\d{4}-\d{4}/.test(allText)){
+      parseFuelEuroShellMasked(allText);
+    }
+    else {
+      showFuelError('PDF-formatet genkendes ikke. Understøtter Shell tankfaktura og euroShell.');
+      status.style.display = 'none'; return;
+    }
+
+    if(!_fuelParsedData.length){
+      showFuelError('Ingen kortdata fundet i PDF.');
+      status.style.display = 'none'; return;
+    }
+
+    autoMatchFuelCards();
+    renderFuelResults();
+    status.style.display = 'none';
+  } catch(err){
+    showFuelError('Fejl: '+err.message);
+    status.style.display = 'none';
+  }
+}
+
+function parseFuelShellTank(pageTexts){
+  const cardMap = {};
+  for(const items of pageTexts){
+    const fullText = items.join(' ');
+    const kortMatch = fullText.match(/Kort:\s*'?\d+\s+(\d{4})-(\d{4})/);
+    if(!kortMatch) continue;
+    const kortNr = kortMatch[1];
+    const totalIdx = items.lastIndexOf('Total');
+    if(totalIdx===-1) continue;
+    const afterTotal = items.slice(totalIdx+1).filter(s=>s.trim()!=='');
+    const nums = [];
+    for(const item of afterTotal){
+      const cleaned = item.trim().replace(/\./g,'').replace(',','.');
+      if(!isNaN(parseFloat(cleaned))) nums.push(item.trim());
+      if(nums.length>=5) break;
+    }
+    if(nums.length>=3){
+      const netto = parseFuelDK(nums[1]), rabat = parseFuelDK(nums[2]);
+      if(!cardMap[kortNr]) cardMap[kortNr] = {kortNr, netto:0, rabat:0, moms:0, brutto:0, kwh:0, antal:0};
+      cardMap[kortNr].netto += netto;
+      cardMap[kortNr].rabat += rabat;
+    }
+  }
+  _fuelParsedData = Object.values(cardMap).sort((a,b)=>b.netto-a.netto);
+  _fuelDataMode = 'shell';
+}
+
+function parseFuelEuroShell(allText){
+  const cardMap = {};
+  const cardRe = /700210120\d+\s+\d{4}\s+[AB]\s+(\d{4})\s+[AB]/g;
+  let match;
+  while((match=cardRe.exec(allText))!==null){
+    const kortNr = match[1];
+    const startPos = match.index+match[0].length;
+    const nextCard = allText.indexOf('700210120',startPos);
+    const chunk = nextCard>-1 ? allText.substring(startPos,nextCard) : allText.substring(startPos);
+    const numMatches = [...chunk.matchAll(/([\d.]+,\d{2})/g)].map(x=>parseFuelDK(x[1]));
+    if(numMatches.length>=3){
+      let netto,brutto,moms;
+      if(numMatches.length>=4){moms=numMatches[1];netto=numMatches[2];brutto=numMatches[3]}
+      else{moms=numMatches[0];netto=numMatches[1];brutto=numMatches[2]}
+      if(!cardMap[kortNr]) cardMap[kortNr] = {kortNr, netto:0, moms:0, brutto:0, rabat:0, kwh:0, antal:0};
+      cardMap[kortNr].netto+=netto; cardMap[kortNr].moms+=moms; cardMap[kortNr].brutto+=brutto;
+    }
+  }
+  _fuelParsedData = Object.values(cardMap).sort((a,b)=>b.netto-a.netto);
+  _fuelDataMode = 'euroshell';
+}
+
+function parseFuelEuroShellMasked(allText){
+  const cardMap = {};
+  const cardRe = /7002101\*+\d+\s+(\d{4})-\d{4}\s+\d{4}-\d{4}/g;
+  let match;
+  while((match=cardRe.exec(allText))!==null){
+    const kortNr = match[1];
+    const startPos = match.index+match[0].length;
+    const nextCard = allText.indexOf('7002101*',startPos);
+    const chunk = nextCard>-1 ? allText.substring(startPos,nextCard) : allText.substring(startPos);
+    const numMatches = [...chunk.matchAll(/([\d.]+,\d{2})/g)].map(x=>parseFuelDK(x[1]));
+    if(numMatches.length>=3){
+      let netto,brutto,moms;
+      if(numMatches.length>=4){moms=numMatches[1];netto=numMatches[2];brutto=numMatches[3]}
+      else{moms=numMatches[0];netto=numMatches[1];brutto=numMatches[2]}
+      if(!cardMap[kortNr]) cardMap[kortNr] = {kortNr, netto:0, moms:0, brutto:0, rabat:0, kwh:0, antal:0};
+      cardMap[kortNr].netto+=netto; cardMap[kortNr].moms+=moms; cardMap[kortNr].brutto+=brutto;
+    }
+  }
+  _fuelParsedData = Object.values(cardMap).sort((a,b)=>b.netto-a.netto);
+  _fuelDataMode = 'euroshell';
+}
+
+// ── XLSX / CSV lade-transaktioner ──
+async function handleFuelXLSX(file){
+  const status = document.getElementById('fuel-parse-status');
+  status.style.display = 'flex';
+  try {
+    const ab = await file.arrayBuffer();
+    const wb = XLSX.read(ab, {type:'array'});
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(sheet);
+    if(!rows.length){ showFuelError('Filen er tom.'); status.style.display='none'; return; }
+    const cols = Object.keys(rows[0]);
+    const find = (cands) => { const lc=cols.map(c=>[c,c.toLowerCase().trim()]); for(const ca of cands){const m=lc.find(([,l])=>l===ca.toLowerCase());if(m)return m[0]} return null; };
+    // chargeKeyId bruges til matching, chargeKeyName til visning
+    const idCol = find(['chargeKeyId','chargeKeyName','kort','card','kortnr']);
+    const nameCol = find(['chargeKeyName']); // visningsnavn (kan være null)
+    const nettoCol = find(['subAmount','netto','netto beløb','net']);
+    const momsCol = find(['vat','moms']);
+    const bruttoCol = find(['amount','brutto','brutto beløb','total']);
+    const kwhCol = find(['kwh','energy','energi']);
+    if(!idCol){ showFuelError('Kunne ikke finde en kort-kolonne (chargeKeyId/chargeKeyName).'); status.style.display='none'; return; }
+    const cardMap = {};
+    const num = v => typeof v==='number' ? v : parseFloat(v)||0;
+    for(const row of rows){
+      const id = String(row[idCol]||'').trim();
+      if(!id) continue;
+      if(!cardMap[id]) cardMap[id] = {
+        kortNr: id,
+        kortName: nameCol ? String(row[nameCol]||'').trim() : id,
+        netto:0, moms:0, brutto:0, kwh:0, rabat:0, antal:0
+      };
+      cardMap[id].netto += num(row[nettoCol]);
+      cardMap[id].moms += num(row[momsCol]);
+      cardMap[id].brutto += num(row[bruttoCol]);
+      cardMap[id].kwh += num(row[kwhCol]);
+      cardMap[id].antal += 1;
+    }
+    _fuelParsedData = Object.values(cardMap).sort((a,b)=>a.netto-b.netto);
+    _fuelDataMode = 'charging';
+    if(!_fuelParsedData.length){ showFuelError('Ingen data fundet.'); status.style.display='none'; return; }
+    autoMatchFuelCards();
+    renderFuelResults();
+    status.style.display = 'none';
+  } catch(err){ showFuelError('Fejl: '+err.message); status.style.display='none'; }
+}
+
+function parseFuelDK(s){ return s ? parseFloat(s.replace(/\./g,'').replace(',','.')) : 0; }
+
+function autoMatchFuelCards(){
+  _fuelCardMatches = {};
+  _fuelParsedData.forEach(c => {
+    // 1. Eksakt match: chargeKeyId === card.number
+    let match = cards.find(fc =>
+      (fc.type==='fuel'||fc.type==='charge') && fc.number &&
+      fc.number.trim() === c.kortNr.trim() && fc.active
+    );
+    // 2. Delvis match: card.number indeholder kortNr eller omvendt
+    if(!match){
+      match = cards.find(fc =>
+        (fc.type==='fuel'||fc.type==='charge') && fc.number && fc.active &&
+        (fc.number.includes(c.kortNr) || c.kortNr.includes(fc.number))
+      );
+    }
+    // 3. Match via visningsnavn (kortName) hvis tilgængeligt
+    if(!match && c.kortName && c.kortName !== c.kortNr){
+      match = cards.find(fc =>
+        (fc.type==='fuel'||fc.type==='charge') && fc.number && fc.active &&
+        (fc.number.includes(c.kortName) || c.kortName.includes(fc.number))
+      );
+    }
+    if(match) _fuelCardMatches[c.kortNr] = match.empId;
+  });
+
+  // Log match results
+  const matched = Object.keys(_fuelCardMatches).length;
+  const total = _fuelParsedData.length;
+  if(matched > 0) toast(`🔗 ${matched}/${total} kort auto-matchet til medarbejdere`);
+}
+
+function showFuelError(msg){
+  const el = document.getElementById('fuel-parse-error');
+  el.textContent=msg; el.style.display='block';
+}
+function hideFuelError(){
+  document.getElementById('fuel-parse-error').style.display='none';
+}
+
+function fmtDK(num){
+  return num.toLocaleString('da-DK',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function renderFuelResults(){
+  const totalNetto = _fuelParsedData.reduce((s,r)=>s+Math.abs(r.netto),0);
+  const totalRabat = _fuelParsedData.reduce((s,r)=>s+r.rabat,0);
+  const totalMoms = _fuelParsedData.reduce((s,r)=>s+Math.abs(r.moms),0);
+  const totalBrutto = _fuelParsedData.reduce((s,r)=>s+Math.abs(r.brutto),0);
+  const totalKwh = _fuelParsedData.reduce((s,r)=>s+r.kwh,0);
+
+  document.getElementById('fuel-total-cards').textContent = _fuelParsedData.length;
+  document.getElementById('fuel-total-netto').textContent = fmtDK(totalNetto);
+
+  // Update third stat based on mode
+  const rabatEl = document.getElementById('fuel-total-rabat');
+  if(_fuelDataMode==='shell'){
+    rabatEl.textContent = fmtDK(totalRabat);
+    rabatEl.parentElement.querySelector('.lbl').textContent = 'Total rabat';
+  } else if(_fuelDataMode==='euroshell'){
+    rabatEl.textContent = fmtDK(totalBrutto);
+    rabatEl.parentElement.querySelector('.lbl').textContent = 'Total brutto';
+  } else {
+    rabatEl.textContent = fmtDK(totalKwh);
+    rabatEl.style.color = 'var(--purple)';
+    rabatEl.parentElement.querySelector('.lbl').textContent = 'Total kWh';
+  }
+
+  // Card → Employee matching
+  const matchEl = document.getElementById('fuel-card-match');
+  const empOpts = '<option value="">— Vælg —</option>' +
+    [...employees].sort((a,b)=>{
+      const na=parseInt(a.tur.replace(/\D/g,''))||0, nb=parseInt(b.tur.replace(/\D/g,''))||0;
+      return na-nb;
+    }).map(e=>`<option value="${e.id}">${e.tur} — ${e.name}</option>`).join('');
+
+  matchEl.innerHTML = _fuelParsedData.map(c => {
+    const matched = _fuelCardMatches[c.kortNr] || '';
+    let valueDisplay = fmtDK(Math.abs(c.netto));
+    if(_fuelDataMode==='charging' && c.kwh) valueDisplay += ` · ${fmtDK(c.kwh)} kWh`;
+    if(_fuelDataMode==='euroshell' && c.brutto) valueDisplay += ` (${fmtDK(c.brutto)} brutto)`;
+    if(_fuelDataMode==='shell' && c.rabat) valueDisplay += ` (rabat: ${fmtDK(c.rabat)})`;
+    return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span style="font-family:var(--mono);font-size:0.78rem;font-weight:700;color:var(--yellow);min-width:50px">${c.kortNr}${c.kortName && c.kortName!==c.kortNr ? '<br><span style="font-size:0.65rem;color:var(--text3);font-weight:400">'+c.kortName+'</span>':''}</span>
+      <span style="font-family:var(--mono);font-size:0.72rem;color:var(--accent2);min-width:80px">${valueDisplay}</span>
+      <select style="flex:1;min-width:0" data-kort="${c.kortNr}" onchange="matchFuelCard('${c.kortNr}',this.value)" class="fuel-emp-sel">
+        ${empOpts.replace(`value="${matched}"`, `value="${matched}" selected`)}
+      </select>
+    </div>`;
+  }).join('');
+
+  // Show source badge
+  const modeBadges = {shell:'Shell tankfaktura (PDF)', euroshell:'euroShell faktura (PDF)', charging:'Lade-transaktioner (XLSX)'};
+  matchEl.insertAdjacentHTML('beforebegin',
+    `<div style="margin-bottom:10px"><span class="badge badge-${_fuelDataMode==='charging'?'cyan':'orange'}">${modeBadges[_fuelDataMode]||_fuelDataMode}</span></div>`
+  );
+
+  document.getElementById('fuel-results').style.display = 'block';
+}
+
+window.matchFuelCard = function(kortNr, empId){
+  if(empId) _fuelCardMatches[kortNr] = empId;
+  else delete _fuelCardMatches[kortNr];
+};
+
+// ── Save to Firestore ──
+window.saveFuelReport = async function(){
+  if(!_fuelParsedData.length){ toast('⚠️ Ingen data at gemme'); return; }
+
+  const reportData = {
+    date: todayStr(),
+    dataMode: _fuelDataMode || 'shell',
+    cards: _fuelParsedData.map(c => ({
+      kortNr: c.kortNr,
+      netto: c.netto||0,
+      rabat: c.rabat||0,
+      moms: c.moms||0,
+      brutto: c.brutto||0,
+      kwh: c.kwh||0,
+      antal: c.antal||0,
+      empId: _fuelCardMatches[c.kortNr] || null
+    })),
+    totalNetto: _fuelParsedData.reduce((s,r)=>s+Math.abs(r.netto),0),
+    totalRabat: _fuelParsedData.reduce((s,r)=>s+r.rabat,0),
+    totalMoms: _fuelParsedData.reduce((s,r)=>s+Math.abs(r.moms),0),
+    totalBrutto: _fuelParsedData.reduce((s,r)=>s+Math.abs(r.brutto),0),
+    totalKwh: _fuelParsedData.reduce((s,r)=>s+r.kwh,0),
+    totalCards: _fuelParsedData.length,
+    uploadedBy: currentUser,
+    createdAt: new Date().toISOString()
+  };
+
+  try {
+    setSyncing();
+    await _add('lines_fuelReports', reportData);
+    setSynced();
+    toast('✅ Brændstofrapport gemt!');
+    loadFuelReports();
+  } catch(e){ toast('❌ '+e.message); setSynced(); }
+};
+
+// ── Load reports from Firestore ──
+function loadFuelReports(){
+  _snap('lines_fuelReports', [orderBy('createdAt','desc')], snap => {
+    _fuelReports = snap.docs.map(d=>({id:d.id,...d.data()}));
+    renderFuelStats();
+  }, err => console.error('fuelReports:', err));
+}
+
+// ── Statistics views ──
+window.setFuelStatView = function(view, btn){
+  _fuelStatView = view;
+  document.querySelectorAll('#view-fuel .filter-chip').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderFuelStats();
+};
+
+function renderFuelStats(){
+  const el = document.getElementById('fuel-stats-content'); if(!el) return;
+
+  if(!_fuelReports.length){
+    el.innerHTML = '<div class="empty" style="padding:20px"><div class="empty-icon">⛽</div><div style="font-size:0.85rem">Ingen rapporter gemt endnu</div></div>';
+    return;
+  }
+
+  if(_fuelStatView === 'company') renderCompanyStats(el);
+  else if(_fuelStatView === 'employee') renderEmployeeStats(el);
+  else renderReportsList(el);
+}
+
+function renderCompanyStats(el){
+  const dieselReports = _fuelReports.filter(r=>r.dataMode!=='charging');
+  const chargeReports = _fuelReports.filter(r=>r.dataMode==='charging');
+
+  const dieselNetto = dieselReports.reduce((s,r)=>s+(r.totalNetto||0),0);
+  const dieselRabat = dieselReports.reduce((s,r)=>s+(r.totalRabat||0),0);
+  const chargeNetto = chargeReports.reduce((s,r)=>s+(r.totalNetto||0),0);
+  const chargeKwh = chargeReports.reduce((s,r)=>s+(r.totalKwh||0),0);
+
+  // Monthly breakdown per type
+  function monthlyGroup(reports){
+    const m={};
+    reports.forEach(r=>{
+      const k=(r.date||r.createdAt||'').slice(0,7);
+      if(!m[k]) m[k]={netto:0,rabat:0,kwh:0,count:0};
+      m[k].netto+=r.totalNetto||0; m[k].rabat+=r.totalRabat||0; m[k].kwh+=r.totalKwh||0; m[k].count++;
+    });
+    return Object.entries(m).sort((a,b)=>b[0].localeCompare(a[0]));
+  }
+
+  const dieselMonths = monthlyGroup(dieselReports);
+  const chargeMonths = monthlyGroup(chargeReports);
+  const maxDiesel = Math.max(...dieselMonths.map(m=>m[1].netto),1);
+  const maxCharge = Math.max(...chargeMonths.map(m=>m[1].netto),1);
+
+  el.innerHTML = `
+    <!-- DIESEL -->
+    <div style="margin-bottom:20px">
+      <div style="font-size:0.85rem;font-weight:700;color:var(--yellow);margin-bottom:10px">⛽ Diesel / Benzin</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--accent2)">${fmtDK(dieselNetto)}</div>
+          <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">NETTO (DKK)</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--green)">${fmtDK(dieselRabat)}</div>
+          <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">RABAT (DKK)</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--yellow)">${dieselReports.length}</div>
+          <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">RAPPORTER</div>
+        </div>
+      </div>
+      ${dieselMonths.length?dieselMonths.map(([m,d])=>{
+        const pct=Math.round(d.netto/maxDiesel*100);
+        const label=new Date(m+'-01').toLocaleDateString('da-DK',{month:'short',year:'numeric'});
+        return `<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:2px"><span style="color:var(--text3)">${label}</span><span style="font-family:var(--mono);color:var(--accent2)">${fmtDK(d.netto)}</span></div>
+        <div style="height:5px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--yellow),var(--orange));border-radius:3px"></div></div></div>`;
+      }).join(''):'<div style="font-size:0.8rem;color:var(--text3)">Ingen diesel-rapporter endnu</div>'}
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--border);margin:16px 0">
+
+    <!-- EL / LADNING -->
+    <div>
+      <div style="font-size:0.85rem;font-weight:700;color:var(--purple);margin-bottom:10px">🔋 El / Ladning</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px">
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--accent2)">${fmtDK(chargeNetto)}</div>
+          <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">NETTO (DKK)</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--purple)">${fmtDK(chargeKwh)}</div>
+          <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">TOTAL kWh</div>
+        </div>
+        <div style="background:var(--surface2);border-radius:10px;padding:12px;text-align:center">
+          <div style="font-family:var(--mono);font-size:1rem;font-weight:700;color:var(--cyan)">${chargeReports.length}</div>
+          <div style="font-size:0.65rem;color:var(--text3);margin-top:2px">RAPPORTER</div>
+        </div>
+      </div>
+      ${chargeMonths.length?chargeMonths.map(([m,d])=>{
+        const pct=Math.round(d.netto/maxCharge*100);
+        const label=new Date(m+'-01').toLocaleDateString('da-DK',{month:'short',year:'numeric'});
+        return `<div style="margin-bottom:6px"><div style="display:flex;justify-content:space-between;font-size:0.75rem;margin-bottom:2px"><span style="color:var(--text3)">${label}</span><span style="font-family:var(--mono);color:var(--purple)">${fmtDK(d.netto)} · ${fmtDK(d.kwh)} kWh</span></div>
+        <div style="height:5px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:${pct}%;background:linear-gradient(90deg,var(--purple),var(--cyan));border-radius:3px"></div></div></div>`;
+      }).join(''):'<div style="font-size:0.8rem;color:var(--text3)">Ingen lade-rapporter endnu</div>'}
+    </div>`;
+}
+
+function renderEmployeeStats(el){
+  const empTotals = {};
+  _fuelReports.forEach(r => {
+    const isCharge = r.dataMode==='charging';
+    (r.cards||[]).forEach(c => {
+      if(!c.empId) return;
+      if(!empTotals[c.empId]) empTotals[c.empId] = {dieselNetto:0,dieselRabat:0,dieselCount:0,chargeNetto:0,chargeKwh:0,chargeCount:0};
+      if(isCharge){
+        empTotals[c.empId].chargeNetto += Math.abs(c.netto||0);
+        empTotals[c.empId].chargeKwh += c.kwh||0;
+        empTotals[c.empId].chargeCount++;
+      } else {
+        empTotals[c.empId].dieselNetto += c.netto||0;
+        empTotals[c.empId].dieselRabat += c.rabat||0;
+        empTotals[c.empId].dieselCount++;
+      }
+    });
+  });
+
+  const sorted = Object.entries(empTotals).sort((a,b)=>(b[1].dieselNetto+b[1].chargeNetto)-(a[1].dieselNetto+a[1].chargeNetto));
+
+  if(!sorted.length){
+    el.innerHTML = '<div style="font-size:0.85rem;color:var(--text3);padding:16px">Ingen medarbejdere tildelt kort endnu.</div>';
+    return;
+  }
+
+  const maxTotal = sorted.length ? (sorted[0][1].dieselNetto+sorted[0][1].chargeNetto) : 1;
+
+  el.innerHTML = sorted.map(([empId, d])=>{
+    const emp = employees.find(e=>e.id===empId) || {name:'Ukendt',tur:'-'};
+    const total = d.dieselNetto + d.chargeNetto;
+    const pct = Math.round(total/maxTotal*100);
+    const hasDiesel = d.dieselCount>0;
+    const hasCharge = d.chargeCount>0;
+
+    return `<div style="padding:10px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <div>
+          <span style="font-weight:600;font-size:0.88rem">${emp.name}</span>
+          <span style="font-size:0.75rem;color:var(--text3);font-family:var(--mono);margin-left:6px">Tur ${emp.tur}</span>
+        </div>
+        <span style="font-family:var(--mono);font-size:0.82rem;font-weight:700;color:var(--accent2)">${fmtDK(total)} kr.</span>
+      </div>
+      <div style="height:5px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:5px">
+        <div style="height:100%;display:flex;border-radius:3px;overflow:hidden">
+          ${hasDiesel?`<div style="width:${total>0?Math.round(d.dieselNetto/total*pct):0}%;background:var(--yellow)"></div>`:''}
+          ${hasCharge?`<div style="width:${total>0?Math.round(d.chargeNetto/total*pct):0}%;background:var(--purple)"></div>`:''}
+        </div>
+      </div>
+      <div style="display:flex;gap:12px;font-size:0.7rem;color:var(--text3);flex-wrap:wrap">
+        ${hasDiesel?`<span>⛽ ${fmtDK(d.dieselNetto)} kr. · rabat: ${fmtDK(d.dieselRabat)} kr.</span>`:''}
+        ${hasCharge?`<span>🔋 ${fmtDK(d.chargeNetto)} kr. · ${fmtDK(d.chargeKwh)} kWh</span>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderReportsList(el){
+  el.innerHTML = _fuelReports.map(r => {
+    const matched = (r.cards||[]).filter(c=>c.empId).length;
+    const total = (r.cards||[]).length;
+    const isCharge = r.dataMode==='charging';
+    const typeBadge = isCharge ? '<span class="badge badge-purple">🔋 El</span>' : '<span class="badge badge-yellow">⛽ Diesel</span>';
+    return `<div class="log-item" style="margin-bottom:8px">
+      <div class="log-header">
+        <div style="display:flex;align-items:center;gap:8px">
+          ${typeBadge}
+          <span style="font-size:0.78rem;color:var(--text3)">${total} kort</span>
+          <span style="font-size:0.82rem;color:var(--text2)">${fmtDK(r.totalNetto||0)} kr.</span>
+          ${isCharge&&r.totalKwh?`<span style="font-size:0.78rem;color:var(--purple)">${fmtDK(r.totalKwh)} kWh</span>`:''}
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:0.75rem;color:var(--text3)">${matched}/${total}</span>
+          <span class="log-meta">${fmtDate(r.date||r.createdAt?.split('T')[0]||'')}</span>
+          <button class="btn btn-danger btn-sm btn-icon" onclick="deleteFuelReport('${r.id}')">🗑️</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+window.deleteFuelReport = async function(id){
+  if(!confirm('Slet denne brændstofrapport?')) return;
+  try{
+    setSyncing(); await _delete('lines_fuelReports',id); setSynced(); toast('🗑️ Rapport slettet');
+  }catch(e){ toast('❌ '+e.message); }
+};
+
+window.exportFuelCSV = function(){
+  if(!_fuelParsedData.length) return;
+  const totalNetto = _fuelParsedData.reduce((s,r)=>s+r.netto,0);
+  const totalRabat = _fuelParsedData.reduce((s,r)=>s+r.rabat,0);
+  let csv = 'Kort nr.;Medarbejder;Tur;Netto beløb;Rabat ekskl. moms\n';
+  _fuelParsedData.forEach(r=>{
+    const empId = _fuelCardMatches[r.kortNr];
+    const emp = empId ? employees.find(e=>e.id===empId) : null;
+    csv += `${r.kortNr};${emp?.name||'Ikke tildelt'};${emp?.tur||'-'};${r.netto.toFixed(2).replace('.',',')};${r.rabat.toFixed(2).replace('.',',')}\n`;
+  });
+  csv += `Total;;;${totalNetto.toFixed(2).replace('.',',')};${totalRabat.toFixed(2).replace('.',',')}\n`;
+  const blob = new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='braendstof-rapport.csv'; a.click();
+};
+
+window.resetFuel = function(){
+  _fuelParsedData = []; _fuelCardMatches = {};
+  document.getElementById('fuel-results').style.display = 'none';
+  document.getElementById('fuel-file-input').value = '';
+};
+
+// ═══════════════════════════════════════════════════
+//  DOKUSCAN — AI FAKTURA SCANNER (via Cloudflare Proxy)
+// ═══════════════════════════════════════════════════
+// ── PROXY CONFIG — Skift disse to værdier ──
+const PROXY_URL = localStorage.getItem('ln_proxy_url') || '';
+const PROXY_SECRET = localStorage.getItem('ln_proxy_secret') || '';
+
+window.setScanProxy = function(){
+  const url = prompt('Indtast din Cloudflare Worker URL:\n(fx https://gemini-proxy.dit-navn.workers.dev)', localStorage.getItem('ln_proxy_url') || '');
+  if(url === null) return;
+  localStorage.setItem('ln_proxy_url', url.trim());
+
+  const secret = prompt('Indtast din APP_SECRET:\n(den kode du satte i Worker secrets)', localStorage.getItem('ln_proxy_secret') || '');
+  if(secret === null) return;
+  localStorage.setItem('ln_proxy_secret', secret.trim());
+
+  // Reload config
+  window.location.reload();
+};
+
+let _scanSelectedEmpId = null;
+let _scanning = false;
+
+function renderScanEmpPills(){
+  const c=document.getElementById('scan-emp-pills'); if(!c) return;
+  const sorted = [...employees].sort((a,b) => {
+    const na = parseInt(a.tur.replace(/\D/g,'')) || 0;
+    const nb = parseInt(b.tur.replace(/\D/g,'')) || 0;
+    return na - nb || a.name.localeCompare(b.name);
+  });
+  c.innerHTML = sorted.length
+    ? sorted.map(e=>`<div class="emp-pill ${_scanSelectedEmpId===e.id?'selected':''}" onclick="selectScanEmp('${e.id}')">${e.tur} — ${e.name.split(' ')[0]}</div>`).join('')
+    : '<span style="color:var(--text3);font-size:0.85rem">Ingen medarbejdere endnu</span>';
+}
+window.selectScanEmp = function(id){ _scanSelectedEmpId=id; renderScanEmpPills(); };
+
+function initScanner(){
+  const fileInput = document.getElementById('scan-file-input');
+  const camInput = document.getElementById('scan-camera-input');
+  const zone = document.getElementById('scan-upload-zone');
+
+  if(fileInput) fileInput.onchange = e => handleScanFile(e.target.files?.[0]);
+  if(camInput) camInput.onchange = e => handleScanFile(e.target.files?.[0]);
+  if(zone){
+    zone.ondragover = e => { e.preventDefault(); zone.style.borderColor='var(--accent)'; zone.style.background='var(--accent-glow)'; };
+    zone.ondragleave = () => { zone.style.borderColor='var(--border)'; zone.style.background=''; };
+    zone.ondrop = e => { e.preventDefault(); zone.style.borderColor='var(--border)'; zone.style.background=''; handleScanFile(e.dataTransfer?.files?.[0]); };
+  }
+  renderScanEmpPills();
+  const ad = document.getElementById('scan-ansvarlig');
+  if(ad) ad.textContent = currentUser || '—';
+  const sd = document.getElementById('scan-inv-date');
+  if(sd) sd.value = todayStr();
+
+  // Show API proxy status
+  const statusEl = document.getElementById('scan-api-status');
+  if(statusEl){
+    const pUrl = localStorage.getItem('ln_proxy_url');
+    if(pUrl){
+      statusEl.innerHTML = `<span style="color:var(--green)">✓ Proxy konfigureret</span> <span style="color:var(--text3)">(${pUrl.replace(/https?:\/\//,'')})</span>`;
+    } else {
+      statusEl.innerHTML = `<span style="color:var(--red)">⚠ Ikke konfigureret — </span><a href="#" style="color:var(--accent)" onclick="event.preventDefault();setScanProxy()">Klik her for at opsætte</a>`;
+    }
+  }
+}
+
+async function handleScanFile(file){
+  if(!file || _scanning) return;
+  const proxyUrl = localStorage.getItem('ln_proxy_url');
+  if(!proxyUrl){ toast('⚠️ Konfigurer Gemini proxy først'); setScanProxy(); return; }
+  if(!file.type.startsWith('image/')){ toast('⚠️ Upload venligst et billede'); return; }
+
+  // Preview
+  const preview = document.getElementById('scan-img-preview');
+  const placeholder = document.getElementById('scan-placeholder');
+  const newUpload = document.getElementById('scan-new-upload');
+  const reader = new FileReader();
+  reader.onload = e => {
+    preview.innerHTML = `<img src="${e.target.result}" style="max-width:100%;max-height:260px;border-radius:8px;object-fit:contain" />`;
+    preview.style.display = 'block';
+    placeholder.style.display = 'none';
+    if(newUpload) newUpload.style.display = 'flex';
+  };
+  reader.readAsDataURL(file);
+
+  // Show status
+  const status = document.getElementById('scan-status');
+  const statusText = document.getElementById('scan-status-text');
+  const errorEl = document.getElementById('scan-error');
+  status.style.display = 'flex';
+  errorEl.style.display = 'none';
+  statusText.textContent = 'Gemini AI analyserer faktura...';
+  _scanning = true;
+
+  try {
+    const base64 = await new Promise((res,rej)=>{
+      const r = new FileReader();
+      r.onload = ()=>res(r.result.split(",")[1]);
+      r.onerror = ()=>rej(new Error("Kunne ikke læse filen"));
+      r.readAsDataURL(file);
+    });
+
+    const prompt = `Du er en præcis dokumentlæser specialiseret i danske fakturaer og regninger.
+Analyser dette dokument og udtræk følgende felter.
+Returner KUN et JSON-objekt med disse nøgler og værdier.
+Hvis et felt ikke kan findes, brug tom streng "".
+For beløb, brug dansk format med punktum som tusindtalseparator og komma som decimal (f.eks. 8.000,00).
+
+{
+  "inv_sender": "Afsender / firma navn",
+  "inv_amount": "Totalbeløb inkl. moms",
+  "inv_ref": "Fakturanummer eller reference",
+  "inv_type": "En af: Bøde, Værksted, Vejhjælp, Selvrisiko, Andet",
+  "inv_date": "Fakturadato i YYYY-MM-DD format",
+  "inv_cvr": "CVR-nummer på afsender (8 cifre)",
+  "inv_comment": "Kort beskrivelse af hvad fakturaen handler om"
+}
+
+VIGTIGT: Returner KUN valid JSON. Ingen markdown, ingen backticks, ingen forklaring.`;
+
+    const proxyBody = {
+      secret: localStorage.getItem('ln_proxy_secret') || '',
+      model: 'gemini-2.5-flash',
+      contents: [{ parts: [
+        { inlineData: { mimeType: file.type, data: base64 } },
+        { text: prompt }
+      ]}]
+    };
+
+    statusText.textContent = 'Scanner via proxy...';
+    const res = await fetch(localStorage.getItem('ln_proxy_url'), {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(proxyBody)
+    });
+    const data = await res.json();
+
+    if(data.error){
+      errorEl.textContent = 'API-fejl: ' + (data.error.message || data.error || 'Ukendt fejl');
+      errorEl.style.display = 'block';
+      status.style.display = 'none';
+      _scanning = false;
+      return;
+    }
+
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+    if(!text){ errorEl.textContent='Intet svar fra AI. Prøv igen.'; errorEl.style.display='block'; status.style.display='none'; _scanning=false; return; }
+
+    const clean = text.replace(/```json|```/g,"").trim();
+    const parsed = JSON.parse(clean);
+
+    // Fill fields
+    if(parsed.inv_sender) document.getElementById('scan-inv-sender').value = parsed.inv_sender;
+    if(parsed.inv_amount) document.getElementById('scan-inv-amount').value = parsed.inv_amount;
+    if(parsed.inv_ref) document.getElementById('scan-inv-ref').value = parsed.inv_ref;
+    if(parsed.inv_date) document.getElementById('scan-inv-date').value = parsed.inv_date;
+    if(parsed.inv_cvr) document.getElementById('scan-inv-cvr').value = parsed.inv_cvr;
+    if(parsed.inv_comment) document.getElementById('scan-inv-comment').value = parsed.inv_comment;
+    if(parsed.inv_type){
+      const sel = document.getElementById('scan-inv-type');
+      const opts = [...sel.options].map(o=>o.value);
+      if(opts.includes(parsed.inv_type)) sel.value = parsed.inv_type;
+    }
+
+    // Show results
+    document.getElementById('scan-results-card').style.display = 'block';
+    status.style.display = 'none';
+    toast('✅ Faktura scannet!');
+
+  } catch(err){
+    if(err instanceof SyntaxError) errorEl.textContent = 'Kunne ikke parse svaret. Prøv et tydeligere billede.';
+    else errorEl.textContent = 'Fejl: ' + err.message;
+    errorEl.style.display = 'block';
+    status.style.display = 'none';
+  }
+  _scanning = false;
+}
+
+window.saveScanAsInvoice = async function(){
+  if(!_scanSelectedEmpId){ toast('⚠️ Vælg en medarbejder'); return; }
+  if(!currentUser){ toast('⚠️ Vælg hvem du er øverst på siden'); return; }
+
+  const btn = document.getElementById('scan-save-btn');
+  btn.disabled=true; btn.textContent='Gemmer...';
+
+  const extra = {
+    inv_type:   document.getElementById('scan-inv-type').value,
+    inv_sender: document.getElementById('scan-inv-sender').value,
+    inv_amount: document.getElementById('scan-inv-amount').value,
+    inv_ref:    document.getElementById('scan-inv-ref').value,
+  };
+
+  const comment = document.getElementById('scan-inv-comment').value;
+  const date = document.getElementById('scan-inv-date').value || todayStr();
+
+  try {
+    setSyncing();
+    const logData = {
+      empId: _scanSelectedEmpId,
+      date: date,
+      category: 'invoice',
+      extra: extra,
+      comment: comment + (document.getElementById('scan-inv-cvr').value ? ' [CVR: '+document.getElementById('scan-inv-cvr').value+']' : ''),
+      ansvarlig: currentUser,
+      createdAt: new Date().toISOString()
+    };
+    const ref = await _add('lines_logs', logData);
+    await _add('lines_auditLogs',{
+      action:'create', logId:ref.id,
+      snapshot: logData,
+      by: currentUser,
+      timestamp: new Date().toISOString()
+    });
+    setSynced();
+
+    // Reset scanner
+    _scanSelectedEmpId = null;
+    document.getElementById('scan-results-card').style.display = 'none';
+    document.getElementById('scan-img-preview').style.display = 'none';
+    document.getElementById('scan-placeholder').style.display = 'block';
+    const nu = document.getElementById('scan-new-upload'); if(nu) nu.style.display = 'none';
+    document.getElementById('scan-inv-sender').value = '';
+    document.getElementById('scan-inv-amount').value = '';
+    document.getElementById('scan-inv-ref').value = '';
+    document.getElementById('scan-inv-cvr').value = '';
+    document.getElementById('scan-inv-comment').value = '';
+    document.getElementById('scan-inv-date').value = todayStr();
+    document.getElementById('scan-file-input').value = '';
+    renderScanEmpPills();
+
+    toast('✅ Regning gemt i Lines.Note!');
+  } catch(e){ toast('❌ '+e.message); }
+  btn.disabled=false; btn.textContent='💾 Gem som "Regning modtaget"';
+};
+
+// ═══════════════════════════════════════════════════
 //  PWA INSTALL
 // ═══════════════════════════════════════════════════
 let _deferredInstallPrompt = null;
 
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _deferredInstallPrompt = e;
+  // Only show if not dismissed before
+  if(!localStorage.getItem('ln_install_dismissed')) {
+    setTimeout(() => document.getElementById('install-banner')?.classList.add('show'), 3000);
+  }
+});
 
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner')?.classList.remove('show');
+  _deferredInstallPrompt = null;
+  toast('🎉 Lines.Note er installeret!');
+});
 
 window.triggerInstall = async function(){
   if(_deferredInstallPrompt){
@@ -1763,15 +3847,15 @@ window.dismissInstall = function(){
 (function(){
   const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-  if(isIOS && !isStandalone && !localStorage.getItem('ln_ios_dismissed')){
+  if(isIOS && !isStandalone && !localStorage.getItem('pn_ios_dismissed')){
     setTimeout(() => {
       const b = document.getElementById('install-banner');
       if(b){
-        b.innerHTML = `<div class="install-icon">🟢</div>
+        b.innerHTML = `<div class="install-icon">📋</div>
           <div class="install-text"><strong>Installer Lines.Note</strong><span>Tilføj til hjemmeskærm via Safari</span></div>
           <div class="install-actions">
             <button class="btn btn-primary btn-sm" onclick="document.getElementById('ios-guide').classList.add('show');document.getElementById('install-banner').classList.remove('show')">Vis guide</button>
-            <button class="btn btn-ghost btn-sm" onclick="dismissInstall();localStorage.setItem('ln_ios_dismissed','1')">Senere</button>
+            <button class="btn btn-ghost btn-sm" onclick="dismissInstall();localStorage.setItem('pn_ios_dismissed','1')">Senere</button>
           </div>`;
         b.classList.add('show');
       }
@@ -1810,13 +3894,11 @@ window.updateFab = function() {
   fab.title = labels[viewId] || 'Ny notering';
 };
 
-
 startListeners();
 </script>
 
 <script>
-if('serviceWorker'in navigator){ navigator.serviceWorker.register('./sw.js').catch(()=>{}); }
-
+if('serviceWorker'in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
 </script>
 
 <!-- PWA INSTALL BANNER -->
@@ -1833,57 +3915,38 @@ if('serviceWorker'in navigator){ navigator.serviceWorker.register('./sw.js').cat
 </div>
 
 <!-- iOS INSTALL GUIDE -->
-</div>
+<div id="ios-guide">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <strong style="font-size:1rem">Installer på iPhone / iPad</strong>
+    <button class="modal-close" onclick="document.getElementById('ios-guide').classList.remove('show')">✕</button>
+  </div>
   <div class="ios-steps">
     <div class="ios-step"><div class="ios-step-num">1</div><div class="ios-step-icon">⬆️</div><div>Tryk på <strong>Del</strong>-ikonet i Safari's værktøjslinje</div></div>
     <div class="ios-step"><div class="ios-step-num">2</div><div class="ios-step-icon">➕</div><div>Rul ned og tryk på <strong>"Føj til hjemmeskærm"</strong></div></div>
     <div class="ios-step"><div class="ios-step-num">3</div><div class="ios-step-icon">✅</div><div>Tryk <strong>Tilføj</strong> — appen vises på din hjemmeskærm</div></div>
   </div>
+</div>
+<!-- INSTALL GUIDE OVERLAY -->
+<div id="install-guide-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:flex-end;justify-content:center">
+  <div style="background:var(--surface);width:100%;max-width:520px;border-radius:20px 20px 0 0;padding:24px 20px 40px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+      <strong style="font-size:1.1rem">📲 Installer Lines.Note</strong>
+      <button onclick="document.getElementById('install-guide-overlay').style.display='none'" style="background:none;border:none;color:var(--text);font-size:1.4rem;cursor:pointer;padding:4px 8px">✕</button>
+    </div>
+    <p style="font-weight:700;font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">Android (Samsung / Chrome)</p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px">
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><span>Tryk på <strong>⋮ menu</strong> øverst til højre i browseren</span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><span>Vælg <strong>"Tilføj til startskærm"</strong></span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><span>Tryk <strong>Tilføj</strong></span></div>
+    </div>
+    <p style="font-weight:700;font-size:0.8rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px">iPhone / iPad (Safari)</p>
+    <div style="display:flex;flex-direction:column;gap:10px">
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">1</div><span>Tryk på <strong>⬆️ Del</strong>-ikonet i Safari</span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">2</div><span>Vælg <strong>"Føj til hjemmeskærm"</strong></span></div>
+      <div style="display:flex;align-items:center;gap:12px"><div style="background:var(--accent);color:white;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0">3</div><span>Tryk <strong>Tilføj</strong></span></div>
+    </div>
+  </div>
+</div>
 
-
-
-<script>
-// ── Install PWA ─────────────────────────────────────
-var _installPrompt = null;
-
-window.addEventListener('beforeinstallprompt', function(e) {
-  e.preventDefault();
-  _installPrompt = e;
-});
-
-window.addEventListener('appinstalled', function() {
-  _installPrompt = null;
-  var btn  = document.getElementById('install-btn-main');
-  var done = document.getElementById('install-done');
-  if(btn)  btn.style.display  = 'none';
-  if(done) done.style.display = 'block';
-});
-
-function doInstall() {
-  var standalone = window.matchMedia('(display-mode:standalone)').matches || navigator.standalone;
-  if(standalone) {
-    document.getElementById('install-btn-main').style.display = 'none';
-    document.getElementById('install-done').style.display = 'block';
-    return;
-  }
-  if(_installPrompt) {
-    _installPrompt.prompt();
-    _installPrompt.userChoice.then(function(res) {
-      if(res.outcome === 'accepted') {
-        document.getElementById('install-btn-main').style.display = 'none';
-        document.getElementById('install-done').style.display = 'block';
-      }
-      _installPrompt = null;
-    });
-    return;
-  }
-  // No native prompt — show guide
-  document.getElementById('install-guide-overlay').style.display = 'flex';
-}
-
-function hideInstallGuide() {
-  document.getElementById('install-guide-overlay').style.display = 'none';
-}
-</script>
 </body>
 </html>
